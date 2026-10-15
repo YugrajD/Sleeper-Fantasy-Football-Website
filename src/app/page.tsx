@@ -85,36 +85,48 @@ function ProjectionChart({ teams, throughWeek }: { teams: TeamAnalytics[]; throu
   const sorted = useMemo(() => [...teams].sort((a, b) => b.overUnder - a.overUnder), [teams]);
   const [selectedRoster, setSelectedRoster] = useState<number | null>(null);
   const selectedTeam = sorted.find((team) => team.rosterId === selectedRoster) ?? sorted[0];
-  const weekly = selectedTeam?.weekly.filter((entry) => entry.projected !== null) ?? [];
+  const weekly = selectedTeam?.weekly ?? [];
   const chartWidth = 360;
   const chartHeight = 186;
   const left = 34;
   const right = 342;
   const top = 17;
   const bottom = 147;
-  const highest = Math.max(10, ...weekly.flatMap((entry) => [entry.actual, entry.projected ?? 0]));
-  const maxValue = Math.ceil(highest / 20) * 20;
+  const minValue = 60;
+  const maxValue = 160;
+  const axisValues = [60, 80, 100, 120, 140, 160];
   const x = (index: number) => weekly.length <= 1 ? (left + right) / 2 : left + index * (right - left) / (weekly.length - 1);
-  const y = (value: number) => bottom - (value / maxValue) * (bottom - top);
-  const points = (key: "actual" | "projected") => weekly.map((entry, index) => `${x(index)},${y(key === "projected" ? entry.projected ?? 0 : entry.actual)}`).join(" ");
+  const y = (value: number) => bottom - ((Math.max(minValue, Math.min(value, maxValue)) - minValue) / (maxValue - minValue)) * (bottom - top);
+  const actualPoints = weekly.map((entry, index) => `${x(index)},${y(entry.actual)}`).join(" ");
+  const projectionRuns: number[][] = [];
+  let currentProjectionRun: number[] = [];
+  weekly.forEach((entry, index) => {
+    if (entry.projected === null) {
+      if (currentProjectionRun.length) projectionRuns.push(currentProjectionRun);
+      currentProjectionRun = [];
+    } else {
+      currentProjectionRun.push(index);
+    }
+  });
+  if (currentProjectionRun.length) projectionRuns.push(currentProjectionRun);
   const actualForComparedWeeks = selectedTeam?.projectionActualPoints ?? 0;
   const deltaMax = Math.max(1, ...sorted.map((team) => Math.abs(team.overUnder)));
 
   return (
     <section className="analytics-section" aria-labelledby="projection-title">
       <div className="section-heading"><div><span className="section-kicker">COMPLETED WEEKS · 1–{throughWeek || 0}</span><h2 id="projection-title">Projection vs actual</h2></div></div>
-      <p className="section-description">Team scoring projections are rebuilt with this league’s scoring settings. The graph compares weekly starters against their Rotowire projection.</p>
+      <p className="section-description">Team scoring projections use this league’s settings. Manager-supplied totals fill the weeks with missing projection data.</p>
       {throughWeek === 0 ? <div className="empty-analytics">Projection history will appear after Week 1.</div> : <>
         <div className="projection-focus">
           <label className="team-picker"><span>TEAM TREND</span><select aria-label="Choose team projection trend" value={selectedTeam?.rosterId ?? ""} onChange={(event) => setSelectedRoster(Number(event.target.value))}>{sorted.map((team) => <option key={team.rosterId} value={team.rosterId}>{team.name}</option>)}</select></label>
           <div className="projection-legend"><span><i className="legend-dot actual-dot" />Actual</span><span><i className="legend-dot projected-dot" />Projected</span></div>
         </div>
-        {weekly.length ? <div className="performance-chart-wrap"><svg className="performance-chart" viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-label={`${selectedTeam?.name} actual points versus projected points by week`}>
-          {[0, maxValue / 2, maxValue].map((value) => <g key={value}><line x1={left} x2={right} y1={y(value)} y2={y(value)} /><text x={left - 7} y={y(value) + 4} textAnchor="end">{Math.round(value)}</text></g>)}
-          <polyline points={points("projected")} className="projection-line" />
-          <polyline points={points("actual")} className="actual-line" />
-          {weekly.map((entry, index) => <g key={entry.week}><circle className="projection-point" cx={x(index)} cy={y(entry.projected ?? 0)} r="3.5"><title>{`Week ${entry.week}: ${fixed(entry.projected ?? 0)} projected`}</title></circle><circle className="actual-point" cx={x(index)} cy={y(entry.actual)} r="3.5"><title>{`Week ${entry.week}: ${fixed(entry.actual)} actual`}</title></circle><text className="chart-week-label" x={x(index)} y={bottom + 24} textAnchor="middle">W{entry.week}</text></g>)}
-        </svg></div> : <div className="empty-analytics">No historical projections are available for this team yet.</div>}
+        {weekly.length ? <><div className="performance-chart-wrap"><svg className="performance-chart" viewBox={`0 0 ${chartWidth} ${chartHeight}`} role="img" aria-label={`${selectedTeam?.name} actual points versus projected points by week, on a shared league scale from ${minValue} to ${maxValue} points`}>
+          {axisValues.map((value) => <g key={value}><line x1={left} x2={right} y1={y(value)} y2={y(value)} /><text x={left - 7} y={y(value) + 4} textAnchor="end">{value}</text></g>)}
+          {projectionRuns.map((run, index) => <polyline key={index} points={run.map((weekIndex) => `${x(weekIndex)},${y(weekly[weekIndex].projected ?? 0)}`).join(" ")} className="projection-line" />)}
+          <polyline points={actualPoints} className="actual-line" />
+          {weekly.map((entry, index) => <g key={entry.week}>{entry.projected !== null && <circle className="projection-point" cx={x(index)} cy={y(entry.projected)} r="3.5"><title>{`Week ${entry.week}: ${fixed(entry.projected)} projected`}</title></circle>}<circle className="actual-point" cx={x(index)} cy={y(entry.actual)} r="3.5"><title>{`Week ${entry.week}: ${fixed(entry.actual)} actual`}</title></circle><text className="chart-week-label" x={x(index)} y={bottom + 24} textAnchor="middle">W{entry.week}</text></g>)}
+        </svg></div></> : <div className="empty-analytics">No historical projections are available for this team yet.</div>}
         {selectedTeam && <div className="projection-total-strip"><div><span>ACTUAL PF</span><strong>{fixed(actualForComparedWeeks)}</strong></div><div><span>PROJECTED PF</span><strong>{fixed(selectedTeam.projectedPoints)}</strong></div><div><span>OVER / UNDER</span><strong className={selectedTeam.overUnder >= 0 ? "positive-text" : "negative-text"}>{signed(selectedTeam.overUnder)}</strong></div></div>}
         <div className="section-subheading"><h3>League totals</h3><span>actual vs projection</span></div>
         <div className="projection-team-list">{sorted.map((team) => {
@@ -125,7 +137,7 @@ function ProjectionChart({ teams, throughWeek }: { teams: TeamAnalytics[]; throu
             <span className="projection-team-total"><span>ACTUAL <b>{fixed(team.projectionActualPoints)}</b></span><span>PROJ <b>{fixed(team.projectedPoints)}</b></span><span>PF <b>{fixed(team.actualPoints)}</b></span></span>
           </button>;
         })}</div>
-        <p className="method-note">Over / under uses weeks with a complete starting-lineup projection. PF is total actual points through Week {throughWeek}.</p>
+        <p className="method-note">Over / under uses available lineup projections and manager-supplied weekly totals. PF is total actual points through Week {throughWeek}.</p>
       </>}
     </section>
   );

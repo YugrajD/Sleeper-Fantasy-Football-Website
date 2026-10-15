@@ -36,6 +36,22 @@ type PlayerFeedRow = {
   stats?: Record<string, unknown>;
 };
 
+// Manager-supplied team totals fill weeks where Sleeper's projection feed is incomplete.
+const manualTeamProjections: Array<{ teamAliases: string[]; weeks: Record<number, number> }> = [
+  { teamAliases: ["dartvader"], weeks: { 4: 98.2, 5: 102.78 } },
+  { teamAliases: ["brandonaubreysinclair"], weeks: { 4: 122.01 } },
+  { teamAliases: ["bride"], weeks: { 4: 108.87 } },
+  { teamAliases: ["jacobs"], weeks: { 3: 111.75 } },
+];
+
+function manualProjectionFor(team: string, week: number): number | null {
+  const normalizedName = team.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const override = manualTeamProjections.find(({ teamAliases }) =>
+    teamAliases.some((alias) => normalizedName === alias || normalizedName.startsWith(alias)),
+  );
+  return override?.weeks[week] ?? null;
+}
+
 export type WeeklyTeamAnalytics = {
   week: number;
   actual: number;
@@ -362,7 +378,8 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
         return row?.stats ? scoreProjection(row.stats, scoring) : null;
       });
       const allProjected = projectedScores.length > 0 && projectedScores.every((score) => score !== null);
-      const projected = allProjected ? projectedScores.reduce<number>((sum, score) => sum + (score ?? 0), 0) : null;
+      const generatedProjection = allProjected ? projectedScores.reduce<number>((sum, score) => sum + (score ?? 0), 0) : null;
+      const projected = manualProjectionFor(team.name, week) ?? generatedProjection;
       const optimal = optimalLineupPoints(matchup, league.roster_positions ?? [], players);
       team.weekly.push({ week, actual, projected, optimal });
       team.actualPoints += actual;
@@ -424,6 +441,6 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
     throughWeek: completedWeek,
     teams: teamStats,
     trades,
-    note: "Weekly player projections are scored with this league’s settings. Actual points and lineup scores come from Sleeper matchups.",
+    note: "Weekly player projections are scored with this league’s settings, with manager-supplied team totals used where provided. Actual points and lineup scores come from Sleeper matchups.",
   };
 }
