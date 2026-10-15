@@ -59,6 +59,8 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .rank-chart-series line { stroke-width: 1.6; opacity: .78; }
 .rank-chart-handles { position: absolute; inset: 0; pointer-events: none; }
 .rank-chart-avatar-position { position: absolute; display: grid; place-items: center; }
+.rank-chart-handle-position-week4 { transform: translateY(-50%); }
+.rank-chart-handle-position-week5 { transform: translate(-100%, -50%); }
 .rank-chart-handle { display: inline-flex; max-width: 116px; min-height: 16px; align-items: center; overflow: hidden; padding: 0 4px; border: 1px solid var(--handle-color); border-radius: 999px; background: #0b0c0d; box-shadow: 0 0 0 2px #0b0c0d; color: var(--mist); font-family: var(--mono); font-size: 8px; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
 .rank-chart .chart-week-label, .performance-chart .chart-week-label { fill: var(--fog); font-size: 9px; letter-spacing: .03em; }
 .rank-chart-key { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 13px; margin-top: 9px; }

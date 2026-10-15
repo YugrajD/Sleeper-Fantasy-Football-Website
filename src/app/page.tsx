@@ -66,7 +66,7 @@ function RankingsView({ teams }: { teams: TeamAnalytics[] }) {
         <p className="section-description">Each line follows one team. Rank 1 is at the top.</p>
         <div className="rank-chart-wrap" style={{ position: "relative" }}>
           <svg className="rank-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Slope chart comparing every team’s Week 4 and Week 5 power ranking">
-            {[1, 6, 12].map((rank) => <g key={rank}><text x="16" y={rankY(rank) + 4}>{String(rank).padStart(2, "0")}</text><line x1="42" y1={rankY(rank)} x2="328" y2={rankY(rank)} /></g>)}
+            {Array.from({ length: 12 }, (_, index) => index + 1).map((rank) => <g className={rank % 2 === 1 || rank === 12 ? "rank-chart-grid rank-chart-grid-labeled" : "rank-chart-grid"} key={rank}><text x="16" y={rankY(rank) + 4}>{rank % 2 === 1 || rank === 12 ? String(rank).padStart(2, "0") : ""}</text><line x1="42" y1={rankY(rank)} x2="328" y2={rankY(rank)} /></g>)}
             {weekFour.map(({ team }, index) => {
               const nextRank = weekFiveRanks.get(team) ?? index + 1;
               const color = colors[index];
@@ -82,7 +82,7 @@ function RankingsView({ teams }: { teams: TeamAnalytics[] }) {
               return [
                 { key: "week4", x: x1, y: rankY(index + 1) },
                 { key: "week5", x: x2, y: rankY(nextRank) },
-              ].map(({ key, x, y }) => <span className="rank-chart-avatar-position" key={`${team}-${key}`} style={{ position: "absolute", left: `${x / width * 100}%`, top: `${y / height * 100}%`, transform: "translate(-50%, -50%)" }}>
+              ].map(({ key, x, y }) => <span className={`rank-chart-avatar-position rank-chart-handle-position-${key}`} key={`${team}-${key}`} style={{ position: "absolute", left: `${x / width * 100}%`, top: `${y / height * 100}%` }}>
                 <span className="rank-chart-handle" style={{ "--handle-color": colors[index] } as CSSProperties}>{handle ? `@${handle.replace(/^@/, "")}` : team}</span>
               </span>);
             })}
