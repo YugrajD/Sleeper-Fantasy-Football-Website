@@ -52,25 +52,11 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .section-heading h2 { margin: 0; color: var(--paper); font-size: 18px; font-weight: 400; letter-spacing: -.02em; }
 .section-meta { color: var(--fog); font-family: var(--mono); font-size: 10px; white-space: nowrap; }
 .section-description { max-width: 680px; margin: 8px 0 13px; color: var(--fog); font-size: 12px; line-height: 1.55; }
-.rank-chart-wrap, .performance-chart-wrap { position: relative; overflow: hidden; border: 1px solid var(--graphite); border-radius: 7px; background: #0b0c0d; }
-.rank-chart, .performance-chart { display: block; width: 100%; height: auto; }
-.rank-chart text, .performance-chart text { fill: var(--ash); font-family: var(--mono); font-size: 9px; }
-.rank-chart > g:not(.rank-chart-series) line, .performance-chart > g line { stroke: var(--graphite); stroke-width: .8; stroke-dasharray: 3 5; }
-.rank-chart-series line { stroke-width: 1.6; opacity: .78; }
-.rank-chart-handles { position: absolute; inset: 0; pointer-events: none; }
-.rank-chart-avatar-position { position: absolute; display: grid; place-items: center; }
-.rank-chart-handle-position-week4 { transform: translateY(-50%); }
-.rank-chart-handle-position-week5 { transform: translate(-100%, -50%); }
-.rank-chart-handle { display: inline-flex; max-width: 116px; min-height: 16px; align-items: center; overflow: hidden; padding: 0 4px; border: 1px solid var(--handle-color); border-radius: 999px; background: #0b0c0d; box-shadow: 0 0 0 2px #0b0c0d; color: var(--mist); font-family: var(--mono); font-size: 8px; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
-.rank-chart .chart-week-label, .performance-chart .chart-week-label { fill: var(--fog); font-size: 9px; letter-spacing: .03em; }
-.rank-chart-key { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 13px; margin-top: 9px; }
-.rank-key-row { display: grid; min-width: 0; grid-template-columns: 12px minmax(0, 1fr) auto auto; align-items: center; gap: 6px; min-height: 36px; border-bottom: 1px solid #191a1c; }
-.rank-key-line { width: 10px; height: 2px; border-radius: 2px; }
-.rank-key-name { display: grid; min-width: 0; gap: 2px; overflow: hidden; }
-.rank-key-name strong { overflow: hidden; color: var(--mist); font-size: 10px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
-.rank-key-name small { overflow: hidden; color: var(--ash); font-family: var(--mono); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
-.rank-key-change, .rank-key-delta { color: var(--ash); font-family: var(--mono); font-size: 8px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.rank-key-delta.movement-up { color: var(--green); }.rank-key-delta.movement-down { color: var(--red); }
+.performance-chart-wrap { overflow: hidden; border: 1px solid var(--graphite); border-radius: 7px; background: #0b0c0d; }
+.performance-chart { display: block; width: 100%; height: auto; }
+.performance-chart text { fill: var(--ash); font-family: var(--mono); font-size: 9px; }
+.performance-chart > g line { stroke: var(--graphite); stroke-width: .8; stroke-dasharray: 3 5; }
+.performance-chart .chart-week-label { fill: var(--fog); font-size: 9px; letter-spacing: .03em; }
 .latest-rankings-section { padding-top: 0; }
 .rankings-section-heading { align-items: end; margin-bottom: 12px; }
 .week-picker, .team-picker { display: grid; min-width: 111px; gap: 5px; }
@@ -200,10 +186,6 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
   .analytics-tab.active::after { right: 8px; left: 8px; }
   .section-heading h2 { font-size: 17px; }
   .section-description { font-size: 11px; }
-  .rank-chart-key { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 9px; }
-  .rank-key-row { grid-template-columns: 10px minmax(0, 1fr) auto auto; gap: 5px; }
-  .rank-key-name strong { font-size: 9px; }
-  .rank-key-change, .rank-key-delta { font-size: 8px; }
   .rankings-section-heading { gap: 8px; }
   .week-picker { min-width: 102px; }
   .week-picker select, .team-picker select { min-height: 40px; }
@@ -253,8 +235,6 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
   .analytics-page-heading h1 { font-size: 24px; }
   .through-label { font-size: 7px; }
   .week-picker { min-width: 91px; }
-  .rank-key-row { grid-template-columns: 9px minmax(0, 1fr) auto; gap: 4px; }
-  .rank-key-change { display: none; }
   .optimal-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-left: 32px; }
   .optimal-metrics span { font-size: 7px; }
   .optimal-expand-label, .optimal-game-list { margin-left: 32px; }

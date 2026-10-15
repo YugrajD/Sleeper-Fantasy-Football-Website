@@ -14,8 +14,6 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "trades", label: "Trades" },
   { id: "averages", label: "Averages" },
 ];
-const colors = ["#e4f222", "#a8b0b8", "#7bc5b5", "#b9a2dd", "#d39d76", "#74a9d4", "#cc8391", "#8fb56b", "#d3c776", "#81a4a2", "#a48e8a", "#888bce"];
-
 function movementFor(team: string, rank: number) {
   const previousRank = powerRankings[4].findIndex((entry) => entry.team === team) + 1;
   if (previousRank < 1) return null;
@@ -34,84 +32,21 @@ function signed(value: number) {
   return `${value > 0 ? "+" : value < 0 ? "−" : ""}${fixed(Math.abs(value))}`;
 }
 
-function normalizedTeamName(name: string) {
-  return name.toLowerCase().replace(/^team\s*/, "").replace(/[^a-z0-9]/g, "");
-}
-
-function sleeperHandleForRankingTeam(name: string, teams: TeamAnalytics[]) {
-  const key = normalizedTeamName(name);
-  return teams.find((team) => [team.name, ...team.aliases].some((alias) => normalizedTeamName(alias) === key))?.sleeperUsername ?? null;
-}
-
-function RankingsView({ teams }: { teams: TeamAnalytics[] }) {
+function RankingsView() {
   const [week, setWeek] = useState<RankingWeek>(5);
   const rankings = powerRankings[week];
-  const weekFour = powerRankings[4];
-  const weekFiveRanks = new Map(powerRankings[5].map(({ team }, index) => [team, index + 1]));
-  const width = 360;
-  const height = 284;
-  const x1 = 74;
-  const x2 = 286;
-  const top = 26;
-  const step = 19.2;
-  const rankY = (rank: number) => top + (rank - 1) * step;
-
-  return (
-    <>
-      <section className="analytics-section ranking-trend-section" aria-labelledby="rank-trend-title">
-        <div className="section-heading">
-          <div><span className="section-kicker">WEEK OVER WEEK</span><h2 id="rank-trend-title">Ranking movement</h2></div>
-          <span className="section-meta">W4 → W5</span>
-        </div>
-        <p className="section-description">Each line follows one team. Rank 1 is at the top.</p>
-        <div className="rank-chart-wrap" style={{ position: "relative" }}>
-          <svg className="rank-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Slope chart comparing every team’s Week 4 and Week 5 power ranking">
-            {Array.from({ length: 12 }, (_, index) => index + 1).map((rank) => <g className={rank % 2 === 1 || rank === 12 ? "rank-chart-grid rank-chart-grid-labeled" : "rank-chart-grid"} key={rank}><text x="16" y={rankY(rank) + 4}>{rank % 2 === 1 || rank === 12 ? String(rank).padStart(2, "0") : ""}</text><line x1="42" y1={rankY(rank)} x2="328" y2={rankY(rank)} /></g>)}
-            {weekFour.map(({ team }, index) => {
-              const nextRank = weekFiveRanks.get(team) ?? index + 1;
-              const color = colors[index];
-              return <g key={team} className="rank-chart-series"><title>{`${team}: Week 4 rank ${index + 1}, Week 5 rank ${nextRank}`}</title><line x1={x1} y1={rankY(index + 1)} x2={x2} y2={rankY(nextRank)} stroke={color} /></g>;
-            })}
-            <text className="chart-week-label" x={x1} y={height - 6} textAnchor="middle">WEEK 4</text>
-            <text className="chart-week-label" x={x2} y={height - 6} textAnchor="middle">WEEK 5</text>
-          </svg>
-          <div className="rank-chart-handles" aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-            {weekFour.map(({ team }, index) => {
-              const nextRank = weekFiveRanks.get(team) ?? index + 1;
-              const handle = sleeperHandleForRankingTeam(team, teams);
-              return [
-                { key: "week4", x: x1, y: rankY(index + 1) },
-                { key: "week5", x: x2, y: rankY(nextRank) },
-              ].map(({ key, x, y }) => <span className={`rank-chart-avatar-position rank-chart-handle-position-${key}`} key={`${team}-${key}`} style={{ position: "absolute", left: `${x / width * 100}%`, top: `${y / height * 100}%` }}>
-                <span className="rank-chart-handle" style={{ "--handle-color": colors[index] } as CSSProperties}>{handle ? `@${handle.replace(/^@/, "")}` : team}</span>
-              </span>);
-            })}
-          </div>
-        </div>
-        <div className="rank-chart-key" aria-label="Power ranking movement by team">
-          {weekFour.map(({ team }, index) => {
-            const currentRank = weekFiveRanks.get(team) ?? index + 1;
-            const move = movementFor(team, currentRank);
-            const handle = sleeperHandleForRankingTeam(team, teams);
-            return <div className="rank-key-row" key={team}><span className="rank-key-line" style={{ backgroundColor: colors[index] }} /><span className="rank-key-name"><strong>{team}</strong>{handle && <small>@{handle.replace(/^@/, "")}</small>}</span><span className="rank-key-change">{index + 1} → {currentRank}</span><span className={`rank-key-delta ${move?.className ?? ""}`}>{move?.text}</span></div>;
-          })}
-        </div>
-      </section>
-
-      <section className="analytics-section latest-rankings-section" aria-labelledby="rankings-title">
-        <div className="section-heading rankings-section-heading">
-          <div><span className="section-kicker">2026 · UCDEGENS</span><h2 id="rankings-title">Power rankings</h2></div>
-          <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}><option value={5}>Week 5</option><option value={4}>Week 4</option></select></label>
-        </div>
-        <ol className="rankings-list" aria-label={`Week ${week} power rankings`}>
-          {rankings.map(({ team, note }, index) => {
-            const movement = week === 5 ? movementFor(team, index + 1) : null;
-            return <li className="ranking-row" key={team}><div className="ranking-row-heading"><span className={`rank-number${index === 0 ? " rank-number-first" : ""}`}>{String(index + 1).padStart(2, "0")}</span><h3>{team}</h3>{movement && <span className={`rank-movement ${movement.className}`} aria-label={movement.label}>{movement.text}</span>}</div><p>{note}</p></li>;
-          })}
-        </ol>
-      </section>
-    </>
-  );
+  return <section className="analytics-section latest-rankings-section" aria-labelledby="rankings-title">
+    <div className="section-heading rankings-section-heading">
+      <h2 id="rankings-title">Power rankings</h2>
+      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}><option value={5}>Week 5</option><option value={4}>Week 4</option></select></label>
+    </div>
+    <ol className="rankings-list" aria-label={`Week ${week} power rankings`}>
+      {rankings.map(({ team, note }, index) => {
+        const movement = week === 5 ? movementFor(team, index + 1) : null;
+        return <li className="ranking-row" key={team}><div className="ranking-row-heading"><span className={`rank-number${index === 0 ? " rank-number-first" : ""}`}>{String(index + 1).padStart(2, "0")}</span><h3>{team}</h3>{movement && <span className={`rank-movement ${movement.className}`} aria-label={movement.label}>{movement.text}</span>}</div><p>{note}</p></li>;
+      })}
+    </ol>
+  </section>;
 }
 
 function OptimalStandings({ teams, throughWeek }: { teams: TeamAnalytics[]; throughWeek: number }) {
@@ -272,7 +207,7 @@ export default function Home() {
       <div className="analytics-page-heading"><h1>{tabTitle}</h1>{analytics && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
       <AnalyticsTabs active={activeTab} onChange={setActiveTab} />
       <div className="tab-panel" id="analytics-panel" role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
-        {activeTab === "rankings" && <RankingsView teams={orderedTeams} />}
+        {activeTab === "rankings" && <RankingsView />}
         {error && activeTab !== "rankings" && <div className="analytics-error" role="status">{error}</div>}
         {!error && !analytics && activeTab !== "rankings" && <div className="analytics-loading"><strong>Loading league history</strong><span>Fetching completed weeks from Sleeper…</span></div>}
         {analytics && activeTab === "optimal" && <OptimalStandings teams={orderedTeams} throughWeek={analytics.throughWeek} />}

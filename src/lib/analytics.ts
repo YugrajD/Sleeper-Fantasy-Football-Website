@@ -51,8 +51,6 @@ export type WeeklyTeamAnalytics = {
 export type TeamAnalytics = {
   rosterId: number;
   name: string;
-  sleeperUsername: string | null;
-  aliases: string[];
   actualPoints: number;
   projectedPoints: number;
   projectionActualPoints: number;
@@ -338,8 +336,6 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
     return {
       rosterId: roster.roster_id,
       name: teamName(roster.roster_id, rosters, users),
-      sleeperUsername: owner?.username ?? null,
-      aliases: [owner?.metadata?.team_name, owner?.display_name, owner?.username].filter((alias): alias is string => Boolean(alias)),
       actualPoints: 0,
       projectedPoints: 0,
       projectionActualPoints: 0,
