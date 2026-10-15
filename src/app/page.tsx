@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { powerRankings } from "@/lib/power-rankings";
 import type { LeagueAnalytics, TeamAnalytics, TradeAnalytics } from "@/lib/analytics";
 
-type RankingWeek = 4 | 5;
+type RankingWeek = 4 | 5 | 6;
 type TabId = "rankings" | "optimal" | "projections" | "trades" | "averages";
 
 const tabs: { id: TabId; label: string }[] = [
@@ -14,14 +14,20 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "trades", label: "Trades" },
   { id: "averages", label: "Averages" },
 ];
-function movementFor(team: string, rank: number) {
-  const previousRank = powerRankings[4].findIndex((entry) => entry.team === team) + 1;
+function movementFor(week: RankingWeek, team: string, rank: number) {
+  const current = powerRankings[week].find((entry) => entry.team === team);
+  const previousWeek = (week - 1) as RankingWeek;
+  const previousRank = powerRankings[previousWeek].findIndex((entry) => entry.team === team) + 1;
+  if (current?.movement !== undefined) return movementLabel(current.movement, previousWeek);
   if (previousRank < 1) return null;
-  const change = previousRank - rank;
-  if (change === 0) return { text: "—", className: "movement-even", label: "No change from Week 4" };
+  return movementLabel(previousRank - rank, previousWeek);
+}
+
+function movementLabel(change: number, previousWeek: RankingWeek) {
+  if (change === 0) return { text: "—", className: "movement-even", label: `No change from Week ${previousWeek}` };
   return change > 0
-    ? { text: `↑ ${change}`, className: "movement-up", label: `Up ${change} from Week 4` }
-    : { text: `↓ ${Math.abs(change)}`, className: "movement-down", label: `Down ${Math.abs(change)} from Week 4` };
+    ? { text: `↑ ${change}`, className: "movement-up", label: `Up ${change} from Week ${previousWeek}` }
+    : { text: `↓ ${Math.abs(change)}`, className: "movement-down", label: `Down ${Math.abs(change)} from Week ${previousWeek}` };
 }
 
 function fixed(value: number, digits = 1) {
@@ -33,16 +39,16 @@ function signed(value: number) {
 }
 
 function RankingsView() {
-  const [week, setWeek] = useState<RankingWeek>(5);
+  const [week, setWeek] = useState<RankingWeek>(6);
   const rankings = powerRankings[week];
   return <section className="analytics-section latest-rankings-section" aria-labelledby="rankings-title">
     <div className="section-heading rankings-section-heading">
       <h2 id="rankings-title">Power rankings</h2>
-      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}><option value={5}>Week 5</option><option value={4}>Week 4</option></select></label>
+      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}><option value={6}>Week 6</option><option value={5}>Week 5</option><option value={4}>Week 4</option></select></label>
     </div>
     <ol className="rankings-list" aria-label={`Week ${week} power rankings`}>
       {rankings.map(({ team, note }, index) => {
-        const movement = week === 5 ? movementFor(team, index + 1) : null;
+        const movement = week > 4 ? movementFor(week, team, index + 1) : null;
         return <li className="ranking-row" key={team}><div className="ranking-row-heading"><span className={`rank-number${index === 0 ? " rank-number-first" : ""}`}>{String(index + 1).padStart(2, "0")}</span><h3>{team}</h3>{movement && <span className={`rank-movement ${movement.className}`} aria-label={movement.label}>{movement.text}</span>}</div><p>{note}</p></li>;
       })}
     </ol>

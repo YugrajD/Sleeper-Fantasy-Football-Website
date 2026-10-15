@@ -1,9 +1,24 @@
 export type PowerRank = {
   team: string;
   note: string;
+  movement?: number;
 };
 
-export const powerRankings: Record<4 | 5, PowerRank[]> = {
+export const powerRankings: Record<4 | 5 | 6, PowerRank[]> = {
+  6: [
+    { team: "Jerry Jones’s Auction", movement: 0, note: "Nothing much to say. Even in a down week, he won. After a loss..maybe it changes." },
+    { team: "Team SWKL", movement: 1, note: "The core power of this team cannot be ignored. Bijan, Nico, Tae, Pickens..yeah this team is here. Let’s see if that 2 spot will be locked for season." },
+    { team: "Jacobs Combos", movement: -1, note: "More injury unluck potentially with JSN. If this comes to fruition that an injury is apparent, expect a steeper falloff. For now though, newly acquired Jonathan Taylor should provide this team much-needed support in the running back room and keep this team firmly in the top-3." },
+    { team: "KirK Kousins", movement: 0, note: "Another peaking week. Gibbs, Nabers, Tet, Bowers..another strong core four. Can this team sustain peaking performances weekly? Are these four combined confirmed 100 points per week? Will this team ever cool off?" },
+    { team: "HertzTushRentals", movement: 0, note: "Devastating loss to Team SWKL and horrid field goal attempt by Mevis, but this team is solidly in the top-5 after 5 weeks of NFL play. Despite losing Chuba, the running back room of this team is extremely strong, and I don't think this is changing much." },
+    { team: "Team aa3345", movement: 1, note: "Big win. Season-high, and confident output from individual players. Jaylen Warren may have ascended into confirmed rb2 and maybe even fringe rb1 status to this point of the season. The big question, per usual, remains: is it sustainable?" },
+    { team: "Taking you to Loveland", movement: -1, note: "Down week. Nothing more, nothing less. Down week." },
+    { team: "BrideMayChaseDownMoreLove", movement: 2, note: "Our highest climber this week. This was possibly the hardest ranking of the season. On one hand, we saw this team’s true upside this week. On the other hand, it was this week only. There is a lot of promise with this team showing that the Bucs have life in Bucky and Emeka. And with new addition James Cook, this floor can be raised for the rest of the season. However, can this team keep performing close to ceiling weekly and remain competitive with the top teams?" },
+    { team: "Brandon Aubrey Sinclair", movement: -1, note: "Another just ouch. Yes, this team was destined to lose this week with injuries and bye weeks, but my god the outright shitters from players was horrid. Tate 1.6, Fannin 1.4, Aubrey 5.1, Hockenson 1.7, it’s like this guy is running a treadmill gym with all the cardio going on. Lamar Jackson, Kenneth Walker, and newly acquired A.J. Brown NEED to return for this team to have an outside chance at sniffing playoffs." },
+    { team: "I’m Gonna Nix Myself", movement: -1, note: "I think this owner should do by its name and nys. Inconsistency all around and now some trades to gut starpower from this team. Losing Watson and Cook may harm the ceiling of this team for the rest of the season." },
+    { team: "Chase Brown Kids", movement: 1, note: "Wow: baby’s first win 🥹. New additions of Swift, Watson, and Skattebo may provide this team much needed depth and help, along with the continued rise of Likely." },
+    { team: "Dart Vader", movement: -1, note: "Inconsistency, injuries, and lackluster performances from the stars. Blame Jalen Hurts for Saquon, but very unfortunate circumstances for guys like Burden. With the new acquisitions of Jalen Coker and Marvin Harrison Jr., this team looks to add much-needed depth, but will it amount to anything?" },
+  ],
   5: [
     { team: "Jerry Jones’s Auction", note: "Jerry Jone’s Auction continues to dominate the season. After an impressive win against the 2-seeded Jacobs Combos, this team remains much in charge of the standings and looks extremely hot going forth." },
     { team: "Jacobs Combos", note: "Unfortunate loss for this team. However, the floor of a squad being 116.8..impressive. And to remind all: this team is missing key pieces Caleb Williams and AJ Brown, who look to make their returns as soon as week 6." },
