@@ -268,9 +268,8 @@ export default function Home() {
   const orderedTeams = analytics?.teams ?? [];
 
   return <div className="site-shell" id="home">
-    <header className="site-header ranking-header"><a className="brand" href="#home" aria-label="UCDegens league analytics home"><span className="brand-icon" aria-hidden="true">U</span><span className="brand-copy"><strong>UCDegens</strong><small>LEAGUE ANALYTICS</small></span></a></header>
     <main className="main-content analytics-content">
-      <div className="analytics-page-heading"><div><div className="season-label">{analytics?.season ?? "2026"} <span>·</span> {analytics?.league ?? "UCDegens"}</div><h1>{tabTitle}</h1></div>{analytics && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
+      <div className="analytics-page-heading"><h1>{tabTitle}</h1>{analytics && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
       <AnalyticsTabs active={activeTab} onChange={setActiveTab} />
       <div className="tab-panel" id="analytics-panel" role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
         {activeTab === "rankings" && <RankingsView teams={orderedTeams} />}

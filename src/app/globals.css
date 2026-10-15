@@ -35,7 +35,7 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .season-label span { margin: 0 4px; color: var(--smoke); }
 .analytics-page-heading h1 { margin: 0; color: var(--paper); font-size: clamp(26px, 4vw, 32px); font-weight: 510; letter-spacing: -.04em; line-height: 1.12; }
 .through-label { padding-bottom: 5px; color: var(--ash); font-family: var(--mono); font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
-.analytics-tabs { position: sticky; top: 60px; z-index: 6; margin: 0 -30px 20px; padding: 0 30px; border-bottom: 1px solid var(--graphite); background: rgb(8 9 10 / 96%); backdrop-filter: blur(14px); }
+.analytics-tabs { position: sticky; top: 0; z-index: 6; margin: 0 -30px 20px; padding: 0 30px; border-bottom: 1px solid var(--graphite); background: rgb(8 9 10 / 96%); backdrop-filter: blur(14px); }
 .analytics-tabs-inner { display: flex; min-width: 0; gap: 2px; overflow-x: auto; scrollbar-width: none; }
 .analytics-tabs-inner::-webkit-scrollbar { display: none; }
 .analytics-tab { position: relative; display: inline-flex; min-height: 43px; flex: 0 0 auto; align-items: center; justify-content: center; padding: 0 14px; border: 0; background: transparent; color: var(--fog); font-size: 12px; font-weight: 400; white-space: nowrap; cursor: pointer; }
@@ -194,7 +194,7 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
   .analytics-page-heading { min-height: 58px; margin-bottom: 15px; }
   .analytics-page-heading h1 { font-size: 27px; }
   .through-label { padding-bottom: 3px; font-size: 8px; }
-  .analytics-tabs { top: 54px; margin: 0 -15px 17px; padding: 0 10px; }
+  .analytics-tabs { top: 0; margin: 0 -15px 17px; padding: 0 10px; }
   .analytics-tabs-inner { justify-content: space-between; }
   .analytics-tab { min-height: 42px; padding: 0 8px; font-size: 11px; }
   .analytics-tab.active::after { right: 8px; left: 8px; }
