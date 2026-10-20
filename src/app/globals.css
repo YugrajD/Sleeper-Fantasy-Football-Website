@@ -196,7 +196,8 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .trade-player { display: flex; justify-content: space-between; gap: 8px; padding: 7px 0; border-top: 1px solid #1c1e21; }
 .trade-player-name { display: grid; min-width: 0; align-content: center; gap: 3px; }
 .trade-player-name strong { overflow: hidden; color: var(--mist); font-size: 10px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
-.trade-player-name .trade-position-badge { display: inline-flex; width: max-content; align-items: center; padding: 4px 8px; border: 1px solid #697526; border-radius: 999px; background: #1a1d10; color: var(--lime); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .025em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.trade-player-name .trade-position-badge { display: inline-flex; width: max-content; align-items: center; padding: 4px 8px; border: 1px solid hsl(var(--rank-hue) 48% 35%); border-radius: 999px; background: hsl(var(--rank-hue) 48% 12%); color: hsl(var(--rank-hue) 70% 72%); font-family: var(--mono); font-size: 10px; font-weight: 650; letter-spacing: .025em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.trade-player-name .trade-position-badge.rank-unavailable { border-color: #45484c; background: #191a1c; color: var(--fog); }
 .trade-player-points { display: grid; flex: 0 0 auto; align-content: center; justify-items: end; gap: 3px; }
 .trade-player-points strong { color: var(--paper); font-family: var(--mono); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .trade-player-points small { color: var(--fog); font-family: var(--mono); font-size: 9px; white-space: nowrap; }
