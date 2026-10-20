@@ -9,12 +9,12 @@ type TabId = "rankings" | "optimal" | "projections" | "trades" | "averages" | "p
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "rankings", label: "Power rankings" },
-  { id: "positions", label: "Positions" },
-  { id: "optimal", label: "Perfect lineup" },
-  { id: "projections", label: "Projections" },
   { id: "trades", label: "Trades" },
+  { id: "projections", label: "Projections" },
+  { id: "positions", label: "Positions" },
   { id: "averages", label: "Averages" },
   { id: "schedule", label: "Strength of schedule" },
+  { id: "optimal", label: "Perfect lineup" },
 ];
 
 const fantasyPositions = ["QB", "RB", "WR", "TE", "K", "DEF"] as const;

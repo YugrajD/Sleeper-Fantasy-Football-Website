@@ -214,8 +214,8 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
   .analytics-page-heading h1 { font-size: 27px; }
   .through-label { padding-bottom: 3px; font-size: 8px; }
   .analytics-tabs { top: 0; margin: 0 -15px 17px; padding: 0 10px; }
-  .analytics-tabs-inner { justify-content: space-between; }
-  .analytics-tab { min-height: 42px; padding: 0 8px; font-size: 11px; }
+  .analytics-tabs-inner { justify-content: flex-start; gap: 0; }
+  .analytics-tab { min-height: 44px; padding: 0 7px; font-size: 10.5px; }
   .analytics-tab.active::after { right: 8px; left: 8px; }
   .section-heading h2 { font-size: 17px; }
   .section-description { font-size: 11px; }
@@ -246,11 +246,11 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
   .position-rank-main > strong { font-size: 11px; }
   .position-week-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-left: 34px; }
   .schedule-table-heading, .schedule-row { grid-template-columns: minmax(0, 1fr) 52px 47px 48px; gap: 4px; }
-  .schedule-table-heading { padding: 8px 3px 7px 31px; font-size: 6px; }
-  .schedule-row { min-height: 41px; padding: 6px 3px; }
+  .schedule-table-heading { padding: 8px 3px 7px 31px; font-size: 7px; }
+  .schedule-row { min-height: 44px; padding: 7px 3px; }
   .schedule-row-heading { grid-template-columns: 21px minmax(0, 1fr); gap: 6px; }
-  .schedule-row-heading > strong { font-size: 10px; }
-  .schedule-opponent-score, .schedule-actual-record, .schedule-adjusted-record { font-size: 8px; }
+  .schedule-row-heading > strong { font-size: 12px; }
+  .schedule-opponent-score, .schedule-actual-record, .schedule-adjusted-record { font-size: 10px; }
   .league-week-average { flex-basis: 72px; padding: 8px; }
   .optimal-scoreline { grid-template-columns: 72px minmax(0, 1fr) 14px; gap: 5px; }
   .projection-focus { align-items: end; }
