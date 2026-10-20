@@ -2,9 +2,20 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "UCDegens | League Analytics",
+  title: "UCDegens Hub",
   description: "UCDegens fantasy football power rankings and league analytics.",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "UCDegens" },
+  openGraph: {
+    title: "UCDegens Hub",
+    description: "UCDegens fantasy football league hub.",
+    siteName: "UCDegens Hub",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "UCDegens Hub",
+    description: "UCDegens fantasy football league hub.",
+  },
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "UCDegens Hub" },
 };
 
 export const viewport: Viewport = {

@@ -42,6 +42,7 @@ const manualTeamProjections: Array<{ teamAliases: string[]; weeks: Record<number
   { teamAliases: ["brandonaubreysinclair"], weeks: { 4: 122.01 } },
   { teamAliases: ["bride"], weeks: { 4: 108.87 } },
   { teamAliases: ["jacobs"], weeks: { 3: 111.75 } },
+  { teamAliases: ["swkl"], weeks: { 6: 117.88 } },
 ];
 
 function manualProjectionFor(team: string, week: number): number | null {
@@ -57,6 +58,8 @@ export type WeeklyTeamAnalytics = {
   actual: number;
   projected: number | null;
   optimal: number;
+  starterPointsByPosition: Record<string, number>;
+  flexStarterPoints: number;
   opponent?: string;
   opponentActual?: number;
   opponentOptimal?: number;
@@ -84,6 +87,7 @@ export type TradePlayerImpact = {
   playerId: string;
   name: string;
   position: string;
+  positionRank: number | null;
   points: number;
   games: number | null;
   completedWeeks: number;
@@ -116,7 +120,7 @@ export type LeagueAnalytics = {
 async function fetchJson<T>(url: string, revalidate: number): Promise<T | null> {
   try {
     const response = await fetch(url, {
-      next: { revalidate },
+      ...(revalidate === 0 ? { cache: "no-store" as const } : { next: { revalidate } }),
       headers: { Accept: "application/json" },
     });
     if (!response.ok) return null;
@@ -223,8 +227,56 @@ function optimalLineupPoints(matchup: Matchup, positions: string[], players: Rec
 
 function gameCountFor(row: PlayerFeedRow | undefined) {
   if (!row?.stats) return null;
-  const games = Number(row.stats.gp ?? row.stats.gms_active);
-  return Number.isFinite(games) ? games : null;
+  if (row.stats.gp !== undefined && row.stats.gp !== null) {
+    const games = Number(row.stats.gp);
+    if (Number.isFinite(games)) return games;
+  }
+
+  // `gms_active` means a player was on the active list, not that they appeared
+  // in the game. When GP is absent, only count a week with evidence of play.
+  const appearanceStats = [
+    "off_snp", "def_snp", "st_snp", "pass_att", "pass_cmp", "pass_yd", "pass_td",
+    "rush_att", "rush_yd", "rush_td", "rec_tgt", "rec", "rec_yd", "rec_td",
+    "fgm", "xpm", "kick_ret", "punt_ret", "def_tkl", "def_sack", "def_int",
+    "def_ff", "def_fr", "def_pass_def",
+  ];
+  return appearanceStats.some((stat) => Number(row.stats?.[stat]) > 0) ? 1 : 0;
+}
+
+function positionRanksForPlayers(
+  gamesByWeek: Map<number, Map<string, PlayerFeedRow>>,
+  players: Record<string, Player>,
+  scoring: Record<string, number>,
+) {
+  const totals = new Map<string, { position: string; points: number }>();
+  for (const weeklyStats of gamesByWeek.values()) {
+    for (const [playerId, row] of weeklyStats) {
+      if (!row.stats) continue;
+      const position = players[playerId]?.position ?? positionFor(playerId, players)[0];
+      const points = scoreProjection(row.stats, scoring);
+      if (!position || points === null) continue;
+      const current = totals.get(playerId);
+      totals.set(playerId, { position, points: (current?.points ?? 0) + points });
+    }
+  }
+
+  const byPosition = new Map<string, Array<{ playerId: string; points: number }>>();
+  for (const [playerId, total] of totals) {
+    byPosition.set(total.position, [...(byPosition.get(total.position) ?? []), { playerId, points: total.points }]);
+  }
+
+  const ranks = new Map<string, number>();
+  for (const playersAtPosition of byPosition.values()) {
+    playersAtPosition.sort((a, b) => b.points - a.points || a.playerId.localeCompare(b.playerId));
+    let currentRank = 0;
+    let previousPoints: number | null = null;
+    playersAtPosition.forEach((player, index) => {
+      if (previousPoints === null || Math.abs(player.points - previousPoints) > 0.001) currentRank = index + 1;
+      ranks.set(player.playerId, currentRank);
+      previousPoints = player.points;
+    });
+  }
+  return ranks;
 }
 
 function buildTradeAnalytics(
@@ -234,6 +286,7 @@ function buildTradeAnalytics(
   rosters: Roster[],
   users: User[],
   players: Record<string, Player>,
+  positionRanks: Map<string, number>,
   completedWeek: number,
 ): TradeAnalytics[] {
   const chronological = transactions
@@ -245,24 +298,22 @@ function buildTradeAnalytics(
     const tradeDate = trade.created ? new Date(trade.created).toISOString().slice(0, 10) : null;
     const sides = (trade.roster_ids ?? []).map((rosterId): TradeSideImpact => {
       const incoming = Object.entries(trade.adds ?? {}).filter(([, destination]) => Number(destination) === rosterId);
-      const nextMoveWeek = (playerId: string) => {
-        const next = chronological.find((candidate) => (candidate.created ?? 0) > (trade.created ?? 0)
-          && Number(candidate.drops?.[playerId]) === rosterId);
-        return next ? Number(next.leg ?? completedWeek + 1) - 1 : completedWeek;
-      };
 
       const playersForSide = incoming.map(([playerId]): TradePlayerImpact => {
-        const lastWeek = Math.min(completedWeek, nextMoveWeek(playerId));
         let completedWeeks = 0;
         let totalPoints = 0;
         let games = 0;
         let hasGameData = false;
-        for (let week = tradeWeek; week <= lastWeek; week += 1) {
+        for (let week = tradeWeek; week <= completedWeek; week += 1) {
+          const rosterMatchup = matchupsByWeek.get(week)?.find((entry) => entry.roster_id === rosterId);
+          // The weekly matchup roster is the ownership snapshot for that week.
+          // Ignore weeks the player was not actually on this team, even if a trade
+          // transaction's drop/add metadata is incomplete or late.
+          if (!rosterMatchup?.players?.includes(playerId)) continue;
           const gameRow = gamesByWeek.get(week)?.get(playerId);
           if (week === tradeWeek && tradeDate && gameRow?.date && gameRow.date < tradeDate) continue;
           completedWeeks += 1;
-          const matchup = matchupsByWeek.get(week)?.find((entry) => entry.roster_id === rosterId);
-          const score = matchup?.players_points?.[playerId];
+          const score = rosterMatchup.players_points?.[playerId];
           if (typeof score === "number") totalPoints += score;
           const gameCount = gameCountFor(gamesByWeek.get(week)?.get(playerId));
           if (gameCount !== null) {
@@ -273,7 +324,8 @@ function buildTradeAnalytics(
         return {
           playerId,
           name: cleanPlayerName(playerId, players),
-          position: positionFor(playerId, players)[0] ?? "—",
+          position: players[playerId]?.position ?? positionFor(playerId, players)[0] ?? "—",
+          positionRank: positionRanks.get(playerId) ?? null,
           points: totalPoints,
           games: hasGameData ? games : completedWeeks > 0 ? null : 0,
           completedWeeks,
@@ -310,7 +362,9 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
 
   const season = league.season ?? state.league_season ?? state.season ?? "2026";
   const seasonType = league.season_type ?? state.season_type ?? "regular";
-  const currentWeek = Math.max(1, Number(state.display_week ?? state.week ?? 1));
+  // `display_week` can lag behind the NFL state after a week ends; prefer `week`
+  // so the just-completed week is included in historical analytics.
+  const currentWeek = Math.max(1, Number(state.week ?? state.display_week ?? 1));
   const completedWeek = Math.min(18, currentWeek - 1);
   const weeks = Array.from({ length: completedWeek }, (_, index) => index + 1);
   const positions = [...new Set((league.roster_positions ?? [])
@@ -319,7 +373,7 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
     .filter((position) => ["QB", "RB", "WR", "TE", "K", "DEF", "DL", "LB", "DB", "CB", "S", "DE", "DT"].includes(position));
 
   const [weeklyMatchups, weeklyTransactions, weeklyFeeds] = await Promise.all([
-    Promise.all(weeks.map(async (week) => [week, await fetchJson<Matchup[]>(`${sleeperApi}/league/${leagueId}/matchups/${week}`, 1800)] as const)),
+    Promise.all(weeks.map(async (week) => [week, await fetchJson<Matchup[]>(`${sleeperApi}/league/${leagueId}/matchups/${week}`, week === completedWeek ? 0 : 1800)] as const)),
     Promise.all(Array.from({ length: currentWeek }, async (_, index) => fetchJson<Transaction[]>(`${sleeperApi}/league/${leagueId}/transactions/${index + 1}`, 1800))),
     Promise.all(weeks.map(async (week) => {
       const [projectionPages, stats] = await Promise.all([
@@ -381,7 +435,20 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
       const generatedProjection = allProjected ? projectedScores.reduce<number>((sum, score) => sum + (score ?? 0), 0) : null;
       const projected = manualProjectionFor(team.name, week) ?? generatedProjection;
       const optimal = optimalLineupPoints(matchup, league.roster_positions ?? [], players);
-      team.weekly.push({ week, actual, projected, optimal });
+      const starterPointsByPosition: Record<string, number> = {};
+      let flexStarterPoints = 0;
+      for (const [starterIndex, playerId] of starterIds.entries()) {
+        const playerPosition = players[playerId]?.position ?? positionFor(playerId, players)[0];
+        const points = Number(matchup.players_points?.[playerId] ?? 0);
+        if (!playerPosition || !Number.isFinite(points)) continue;
+        const slot = league.roster_positions?.[starterIndex] ?? "";
+        if (slot.includes("FLEX")) {
+          flexStarterPoints += points;
+          continue;
+        }
+        starterPointsByPosition[playerPosition] = (starterPointsByPosition[playerPosition] ?? 0) + points;
+      }
+      team.weekly.push({ week, actual, projected, optimal, starterPointsByPosition, flexStarterPoints });
       team.actualPoints += actual;
       team.optimalPoints += optimal;
       team.pointsLeft += Math.max(0, optimal - actual);
@@ -434,7 +501,8 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
     }
   }
 
-  const trades = buildTradeAnalytics(transactions, matchupsByWeek, gamesByWeek, rosters, users, players, completedWeek);
+  const positionRanks = positionRanksForPlayers(gamesByWeek, players, scoring);
+  const trades = buildTradeAnalytics(transactions, matchupsByWeek, gamesByWeek, rosters, users, players, positionRanks, completedWeek);
   return {
     league: league.name ?? "UCDegens",
     season,

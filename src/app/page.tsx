@@ -5,15 +5,30 @@ import { powerRankings } from "@/lib/power-rankings";
 import type { LeagueAnalytics, TeamAnalytics, TradeAnalytics } from "@/lib/analytics";
 
 type RankingWeek = 4 | 5 | 6;
-type TabId = "rankings" | "optimal" | "projections" | "trades" | "averages";
+type TabId = "rankings" | "optimal" | "projections" | "trades" | "averages" | "positions" | "schedule";
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "rankings", label: "Power rankings" },
+  { id: "positions", label: "Positions" },
   { id: "optimal", label: "Perfect lineup" },
   { id: "projections", label: "Projections" },
   { id: "trades", label: "Trades" },
   { id: "averages", label: "Averages" },
+  { id: "schedule", label: "Strength of schedule" },
 ];
+
+const fantasyPositions = ["QB", "RB", "WR", "TE", "K", "DEF"] as const;
+type FantasyPosition = (typeof fantasyPositions)[number];
+type StarterCategory = FantasyPosition | "FLEX";
+
+const positionNames: Record<FantasyPosition, string> = {
+  QB: "Quarterback",
+  RB: "Running back",
+  WR: "Wide receiver",
+  TE: "Tight end",
+  K: "Kicker",
+  DEF: "Defense",
+};
 function movementFor(week: RankingWeek, team: string, rank: number) {
   const current = powerRankings[week].find((entry) => entry.team === team);
   const previousWeek = (week - 1) as RankingWeek;
@@ -30,7 +45,7 @@ function movementLabel(change: number, previousWeek: RankingWeek) {
     : { text: `↓ ${Math.abs(change)}`, className: "movement-down", label: `Down ${Math.abs(change)} from Week ${previousWeek}` };
 }
 
-function fixed(value: number, digits = 1) {
+function fixed(value: number, digits = 2) {
   return Number.isFinite(value) ? value.toFixed(digits) : "—";
 }
 
@@ -152,13 +167,13 @@ function ProjectionChart({ teams, throughWeek }: { teams: TeamAnalytics[]; throu
 function TradeCard({ trade }: { trade: TradeAnalytics }) {
   return <article className="trade-card"><div className="trade-card-header"><span>WEEK {trade.week} <i>·</i> {trade.date}</span><span>{trade.sides.map((side) => side.team).join(" ↔ ")}</span></div><div className="trade-sides">{trade.sides.map((side) => <section className="trade-side" key={side.rosterId}>
     <h3>{side.team}<small>RECEIVED</small></h3>
-    {side.players.length ? <ul>{side.players.map((player) => <li className="trade-player" key={player.playerId}><div className="trade-player-name"><strong>{player.name}</strong><span>{player.position}</span></div><div className="trade-player-points"><strong>{player.ppg === null ? "— PPG" : `${fixed(player.ppg)} PPG`}</strong><small>{fixed(player.points)} pts · {player.completedWeeks === 0 ? "no games yet" : player.games === null ? "GP unavailable" : `${player.games} GP`}</small></div></li>)}</ul> : <p className="trade-no-players">No players received</p>}
+    {side.players.length ? <ul>{side.players.map((player) => <li className="trade-player" key={player.playerId}><div className="trade-player-name"><strong>{player.name}</strong><span className="trade-position-badge" aria-label={`${player.position}${player.positionRank === null ? " rank unavailable" : ` rank ${player.positionRank} for the season`}`}>{player.position}{player.positionRank === null ? "" : ` ${player.positionRank}`}</span></div><div className="trade-player-points"><strong>{player.ppg === null ? "— PPG" : `${fixed(player.ppg, 2)} PPG`}</strong><small>{fixed(player.points, 2)} pts · {player.completedWeeks === 0 ? "no games yet" : player.games === null ? "GP unavailable" : `${player.games} GP`}</small></div></li>)}</ul> : <p className="trade-no-players">No players received</p>}
     {side.picks.map((pick) => <p className="trade-pick" key={pick}>Draft pick · {pick}</p>)}
   </section>)}</div></article>;
 }
 
 function TradesView({ trades, throughWeek }: { trades: TradeAnalytics[]; throughWeek: number }) {
-  return <section className="analytics-section" aria-labelledby="trades-title"><div className="section-heading"><div><span className="section-kicker">PLAYER POINTS SINCE THE MOVE</span><h2 id="trades-title">Trade overview</h2></div><span className="section-meta">{trades.length} trades</span></div><p className="section-description">PPG is shown first. Totals include trade-week games played on or after the trade, plus later completed games through Week {throughWeek}.</p>{trades.length ? <div className="trade-list">{trades.map((trade) => <TradeCard trade={trade} key={trade.id} />)}</div> : <div className="empty-analytics">No completed trades yet this season.</div>}</section>;
+  return <section className="analytics-section" aria-labelledby="trades-title"><div className="section-heading"><div><span className="section-kicker">PLAYER POINTS SINCE THE MOVE</span><h2 id="trades-title">Trade overview</h2></div><span className="section-meta">{trades.length} trades</span></div><p className="section-description">PPG is shown first. The position badge ranks each player by season points at their position. Totals include trade-week games played on or after the trade, plus later completed games through Week {throughWeek}.</p>{trades.length ? <div className="trade-list">{trades.map((trade) => <TradeCard trade={trade} key={trade.id} />)}</div> : <div className="empty-analytics">No completed trades yet this season.</div>}</section>;
 }
 
 function AveragesView({ teams, throughWeek }: { teams: TeamAnalytics[]; throughWeek: number }) {
@@ -190,6 +205,89 @@ function AveragesView({ teams, throughWeek }: { teams: TeamAnalytics[]; throughW
         </div>}
       </li>;
     })}</ol>}
+  </section>;
+}
+
+function ScheduleStrengthView({ teams, throughWeek }: { teams: TeamAnalytics[]; throughWeek: number }) {
+  const leagueAverageByWeek = new Map<number, number>();
+  for (const week of new Set(teams.flatMap((team) => team.weekly.map((entry) => entry.week)))) {
+    const scores = teams.flatMap((team) => team.weekly.filter((entry) => entry.week === week).map((entry) => entry.actual));
+    if (scores.length) leagueAverageByWeek.set(week, scores.reduce((sum, score) => sum + score, 0) / scores.length);
+  }
+  const leagueWeeklyAverages = [...leagueAverageByWeek.entries()].sort(([weekA], [weekB]) => weekA - weekB);
+
+  const rows = teams.map((team) => {
+    const weekly = team.weekly;
+    const opponentScores = weekly.flatMap((entry) => entry.opponentActual === undefined ? [] : [entry.opponentActual]);
+    const actualWins = weekly.filter((entry) => entry.actualResult === "W").length;
+    const actualLosses = weekly.filter((entry) => entry.actualResult === "L").length;
+    const actualTies = weekly.filter((entry) => entry.actualResult === "T").length;
+    let wins = 0;
+    let losses = 0;
+    let ties = 0;
+    for (const entry of weekly) {
+      const leagueAverage = leagueAverageByWeek.get(entry.week);
+      if (leagueAverage === undefined) continue;
+      if (Math.abs(entry.actual - leagueAverage) < 0.001) ties += 1;
+      else if (entry.actual > leagueAverage) wins += 1;
+      else losses += 1;
+    }
+    return {
+      ...team,
+      opponentAverage: opponentScores.length ? opponentScores.reduce((sum, score) => sum + score, 0) / opponentScores.length : null,
+      actualRecord: `${actualWins}-${actualLosses}${actualTies ? `-${actualTies}` : ""}`,
+      adjustedRecord: `${wins}-${losses}${ties ? `-${ties}` : ""}`,
+    };
+  });
+  const scheduleSorted = [...rows].sort((a, b) => (b.opponentAverage ?? -Infinity) - (a.opponentAverage ?? -Infinity));
+  return <section className="analytics-section" aria-labelledby="schedule-title">
+    <div className="section-heading"><div><span className="section-kicker">COMPLETED WEEKS · 1–{throughWeek || 0}</span><h2 id="schedule-title">Strength of schedule</h2></div><span className="section-meta">{teams.length} teams</span></div>
+    {!throughWeek ? <div className="empty-analytics">Schedule strength will appear after Week 1.</div> : <>
+      <p className="section-description">Higher opponent PPG means a tougher schedule. “Vs Avg” is each team’s record against that week’s league-average score.</p>
+      <div className="schedule-table-heading" aria-hidden="true"><span>TEAM</span><span>OPP PPG</span><span>ACTUAL</span><span>VS AVG</span></div>
+      <ol className="schedule-list" aria-label="Strength of schedule rankings">{scheduleSorted.map((team, index) => <li className="schedule-row" key={team.rosterId}>
+        <div className="schedule-row-heading"><span className={`rank-number${index === 0 ? " rank-number-first" : ""}`}>{String(index + 1).padStart(2, "0")}</span><strong>{team.name}</strong></div>
+        <span className="schedule-opponent-score">{team.opponentAverage === null ? "—" : fixed(team.opponentAverage)}</span>
+        <span className="schedule-actual-record">{team.actualRecord}</span>
+        <span className="schedule-adjusted-record">{team.adjustedRecord}</span>
+      </li>)}</ol>
+      <div className="section-subheading league-week-heading"><h3>League average by week</h3><span>weekly Vs Avg thresholds · points</span></div>
+      <div className="league-week-average-list" aria-label="League average score by week">{leagueWeeklyAverages.map(([week, average]) => <div className="league-week-average" key={week}><small>WEEK {week}</small><strong>{fixed(average)}</strong></div>)}</div>
+    </>}
+  </section>;
+}
+
+function PositionRankingsView({ teams, season, throughWeek }: { teams: TeamAnalytics[]; season: string; throughWeek: number }) {
+  const [position, setPosition] = useState<StarterCategory>("WR");
+  const isFlex = position === "FLEX";
+  const positionLabel = isFlex ? "flex" : positionNames[position];
+  const [expandedRoster, setExpandedRoster] = useState<number | null>(null);
+  const sorted = useMemo(() => teams.map((team) => ({
+    ...team,
+    positionPoints: team.weekly.reduce((total, week) => total + (isFlex ? week.flexStarterPoints : week.starterPointsByPosition[position] ?? 0), 0),
+  })).sort((a, b) => b.positionPoints - a.positionPoints || a.name.localeCompare(b.name)), [teams, position]);
+  const highestTotal = sorted[0]?.positionPoints ?? 0;
+
+  return <section className="analytics-section" aria-labelledby="position-rankings-title">
+      <div className="section-heading"><div><span className="section-kicker">{season} SEASON · WEEKS 1–{throughWeek || 0}</span><h2 id="position-rankings-title">Starter rankings</h2></div><label className="team-picker position-picker"><span>STARTER SLOT</span><select aria-label="Choose starter slot ranking" value={position} onChange={(event) => { setPosition(event.target.value as StarterCategory); setExpandedRoster(null); }}>{fantasyPositions.map((item) => <option value={item} key={item}>{item} · {positionNames[item]}</option>)}<option value="FLEX">FLEX · Flex Starters</option></select></label></div>
+    <p className="section-description">{isFlex ? "Season points scored by players who filled a flex slot in each weekly Sleeper matchup." : `Season points from players who started at ${positionLabel.toLowerCase()} in a dedicated ${position} slot.`} Select a team to see its weekly totals.</p>
+    {!throughWeek ? <div className="empty-analytics">Starter point rankings will appear after Week 1.</div> : <ol className="position-rank-list" aria-label={`Season ${season} ${positionLabel} starter point rankings`}>
+      {sorted.map((team, index) => {
+        const expanded = expandedRoster === team.rosterId;
+        const barWidth = highestTotal > 0 ? team.positionPoints / highestTotal * 100 : 0;
+        const rankHue = sorted.length <= 1 ? 120 : 120 - index / (sorted.length - 1) * 120;
+        return <li className={`position-rank-row${expanded ? " expanded" : ""}`} key={team.rosterId}>
+          <button className="position-rank-toggle" type="button" aria-expanded={expanded} aria-label={`${expanded ? "Hide" : "Show"} weekly ${positionLabel} starter points for ${team.name}; ranked ${index + 1}`} onClick={() => setExpandedRoster(expanded ? null : team.rosterId)}>
+            <span className={`rank-number${index === 0 ? " rank-number-first" : ""}`}>{String(index + 1).padStart(2, "0")}</span>
+            <span className="position-rank-main"><strong>{team.name}</strong><span className="position-score-track" aria-hidden="true"><span style={{ "--position-width": `${barWidth}%`, "--position-color": `hsl(${rankHue} 52% 46%)` } as CSSProperties} /></span></span>
+            <span className="position-rank-total"><strong>{fixed(team.positionPoints)}</strong><small>PTS</small></span>
+          </button>
+          {expanded && <div className="position-week-grid" aria-label={`Weekly ${positionLabel} starter totals for ${team.name}`}>
+            {team.weekly.map((week) => <div className="position-week-cell" key={week.week}><small>W{week.week}</small><strong>{fixed(isFlex ? week.flexStarterPoints : week.starterPointsByPosition[position] ?? 0)}</strong></div>)}
+          </div>}
+        </li>;
+      })}
+    </ol>}
   </section>;
 }
 
@@ -232,6 +330,8 @@ export default function Home() {
         {analytics && activeTab === "projections" && <ProjectionChart teams={orderedTeams} throughWeek={analytics.throughWeek} />}
         {analytics && activeTab === "trades" && <TradesView trades={analytics.trades} throughWeek={analytics.throughWeek} />}
         {analytics && activeTab === "averages" && <AveragesView teams={orderedTeams} throughWeek={analytics.throughWeek} />}
+        {analytics && activeTab === "positions" && <PositionRankingsView teams={orderedTeams} season={analytics.season} throughWeek={analytics.throughWeek} />}
+        {analytics && activeTab === "schedule" && <ScheduleStrengthView teams={orderedTeams} throughWeek={analytics.throughWeek} />}
       </div>
       <footer className="rankings-footer">UCDegens · Sleeper league data</footer>
     </main>

@@ -118,6 +118,39 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .average-week-cell small { color: var(--ash); font-family: var(--mono); font-size: 8px; }
 .average-week-cell strong { color: var(--mist); font-family: var(--mono); font-size: 12px; font-weight: 400; font-variant-numeric: tabular-nums; }
 
+.position-picker { min-width: min(235px, 64%); }
+.position-rank-list { margin: 14px 0 0; padding: 0; border-top: 1px solid var(--graphite); list-style: none; }
+.position-rank-row { border-bottom: 1px solid var(--graphite); }
+.position-rank-toggle { display: grid; width: 100%; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 9px; padding: 12px 2px; border: 0; background: transparent; text-align: left; cursor: pointer; }
+.position-rank-toggle:focus-visible { outline: 1px solid var(--lime); outline-offset: -2px; }
+.position-rank-main { display: grid; min-width: 0; gap: 8px; }
+.position-rank-main > strong { overflow: hidden; color: var(--mist); font-size: 12px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
+.position-score-track { display: block; height: 5px; overflow: hidden; border-radius: 3px; background: #191a1c; }
+.position-score-track > span { display: block; width: var(--position-width); height: 100%; border-radius: inherit; background: var(--position-color); transition: width 240ms ease, background-color 240ms ease; }
+.position-rank-total { display: flex; align-items: baseline; gap: 4px; }
+.position-rank-total strong { color: var(--paper); font-family: var(--mono); font-size: 14px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.position-rank-total small { color: var(--ash); font-family: var(--mono); font-size: 8px; }
+.position-week-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; margin: 0 0 11px 43px; }
+.position-week-cell { display: grid; gap: 5px; padding: 7px 5px; border: 1px solid var(--graphite); border-radius: 5px; background: var(--carbon); text-align: center; }
+.position-week-cell small { color: var(--ash); font-family: var(--mono); font-size: 8px; }
+.position-week-cell strong { color: var(--fog); font-family: var(--mono); font-size: 10px; font-weight: 400; font-variant-numeric: tabular-nums; }
+
+.schedule-list { display: grid; gap: 0; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--graphite); list-style: none; }
+.schedule-table-heading, .schedule-row { display: grid; grid-template-columns: minmax(0, 1fr) 78px 62px 62px; align-items: center; gap: 7px; }
+.schedule-table-heading { padding: 8px 7px 7px 42px; color: var(--ash); font-family: var(--mono); font-size: 8px; letter-spacing: .045em; text-align: right; }
+.schedule-table-heading > span:first-child { text-align: left; }
+.schedule-row { min-height: 43px; padding: 6px 7px; border-bottom: 1px solid var(--graphite); }
+.schedule-row-heading { display: grid; min-width: 0; grid-template-columns: 28px minmax(0, 1fr); align-items: center; gap: 8px; }
+.schedule-row-heading > strong { overflow: hidden; color: var(--mist); font-size: 12px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
+.schedule-opponent-score, .schedule-actual-record, .schedule-adjusted-record { color: var(--paper); font-family: var(--mono); font-size: 11px; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.schedule-actual-record { color: var(--fog); }
+.schedule-adjusted-record { color: var(--lime); }
+.league-week-heading { margin-top: 22px; }
+.league-week-average-list { display: flex; gap: 6px; overflow-x: auto; padding: 1px 1px 7px; scrollbar-color: var(--smoke) transparent; scrollbar-width: thin; }
+.league-week-average { display: grid; min-width: 72px; flex: 1 0 72px; gap: 6px; padding: 9px; border: 1px solid var(--graphite); border-radius: 5px; background: var(--carbon); }
+.league-week-average small { color: var(--ash); font-family: var(--mono); font-size: 8px; letter-spacing: .04em; }
+.league-week-average strong { color: var(--mist); font-family: var(--mono); font-size: 12px; font-weight: 400; font-variant-numeric: tabular-nums; }
+
 .projection-focus { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 14px 0 10px; }
 .team-picker { min-width: min(230px, 65%); }
 .projection-legend { display: flex; flex-wrap: wrap; gap: 12px; padding-bottom: 8px; color: var(--fog); font-size: 10px; }
@@ -163,7 +196,7 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .trade-player { display: flex; justify-content: space-between; gap: 8px; padding: 7px 0; border-top: 1px solid #1c1e21; }
 .trade-player-name { display: grid; min-width: 0; align-content: center; gap: 3px; }
 .trade-player-name strong { overflow: hidden; color: var(--mist); font-size: 10px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
-.trade-player-name span { color: var(--ash); font-family: var(--mono); font-size: 8px; }
+.trade-player-name .trade-position-badge { display: inline-flex; width: max-content; align-items: center; padding: 4px 8px; border: 1px solid #697526; border-radius: 999px; background: #1a1d10; color: var(--lime); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .025em; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .trade-player-points { display: grid; flex: 0 0 auto; align-content: center; justify-items: end; gap: 3px; }
 .trade-player-points strong { color: var(--paper); font-family: var(--mono); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .trade-player-points small { color: var(--fog); font-family: var(--mono); font-size: 9px; white-space: nowrap; }
@@ -208,6 +241,17 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
   .average-range { gap: 6px; }
   .average-week-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .average-week-cell { padding: 7px; }
+  .position-picker { min-width: min(160px, 55%); }
+  .position-rank-toggle { grid-template-columns: 27px minmax(0, 1fr) auto; gap: 7px; padding: 11px 0; }
+  .position-rank-main > strong { font-size: 11px; }
+  .position-week-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-left: 34px; }
+  .schedule-table-heading, .schedule-row { grid-template-columns: minmax(0, 1fr) 52px 47px 48px; gap: 4px; }
+  .schedule-table-heading { padding: 8px 3px 7px 31px; font-size: 6px; }
+  .schedule-row { min-height: 41px; padding: 6px 3px; }
+  .schedule-row-heading { grid-template-columns: 21px minmax(0, 1fr); gap: 6px; }
+  .schedule-row-heading > strong { font-size: 10px; }
+  .schedule-opponent-score, .schedule-actual-record, .schedule-adjusted-record { font-size: 8px; }
+  .league-week-average { flex-basis: 72px; padding: 8px; }
   .optimal-scoreline { grid-template-columns: 72px minmax(0, 1fr) 14px; gap: 5px; }
   .projection-focus { align-items: end; }
   .team-picker { min-width: min(210px, 62%); }
