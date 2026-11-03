@@ -5,8 +5,8 @@ const sleeperDataApi = "https://api.sleeper.com";
 
 type User = { user_id: string; display_name?: string; username?: string; metadata?: { team_name?: string } };
 type Player = { first_name?: string; last_name?: string; position?: string; fantasy_positions?: string[] };
-type Roster = { roster_id: number; owner_id?: string };
-type League = { name?: string; season?: string; season_type?: string; scoring_settings?: Record<string, number>; roster_positions?: string[] };
+type Roster = { roster_id: number; owner_id?: string; players?: string[] };
+type League = { name?: string; season?: string; season_type?: string; scoring_settings?: Record<string, number>; roster_positions?: string[]; settings?: Record<string, number> };
 type NflState = { week?: number; display_week?: number; season?: string; league_season?: string; season_type?: string };
 type Matchup = {
   roster_id: number;
@@ -36,11 +36,18 @@ type PlayerFeedRow = {
   stats?: Record<string, unknown>;
 };
 
+// Manager-supplied player projections, keyed by season, week, and Sleeper player ID.
+const manualPlayerProjections: Record<string, Record<number, Record<string, number>>> = {
+  "2026": { 8: { "13287": 9.2 } }, // Jeremiyah Love
+};
+
 // Manager-supplied team totals fill weeks where Sleeper's projection feed is incomplete.
 const manualTeamProjections: Array<{ teamAliases: string[]; weeks: Record<number, number> }> = [
   { teamAliases: ["dartvader"], weeks: { 4: 98.2, 5: 102.78 } },
   { teamAliases: ["brandonaubreysinclair"], weeks: { 4: 122.01 } },
+  { teamAliases: ["mayechasemccooks"], weeks: { 4: 108.87 } },
   { teamAliases: ["bride"], weeks: { 4: 108.87 } },
+  { teamAliases: ["byeweek"], weeks: { 3: 116.81 } },
   { teamAliases: ["jacobs"], weeks: { 3: 111.75 } },
   { teamAliases: ["swkl"], weeks: { 6: 117.88 } },
 ];
@@ -107,6 +114,7 @@ export type TradeAnalytics = {
   date: string;
   sides: TradeSideImpact[];
 };
+
 
 export type LeagueAnalytics = {
   league: string;
@@ -365,23 +373,27 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
   // `display_week` can lag behind the NFL state after a week ends; prefer `week`
   // so the just-completed week is included in historical analytics.
   const currentWeek = Math.max(1, Number(state.week ?? state.display_week ?? 1));
-  const completedWeek = Math.min(18, currentWeek - 1);
+  // Sleeper can keep the active week selected after its Monday night game is final.
+  // Include confirmed finals immediately instead of waiting for its global state to advance.
+  const manuallyConfirmedCompletedWeeks: Record<string, number[]> = { "2026": [7, 8] };
+  const confirmedWeek = Math.max(0, ...(manuallyConfirmedCompletedWeeks[season] ?? []));
+  const completedWeek = Math.min(18, Math.max(currentWeek - 1, confirmedWeek));
   const weeks = Array.from({ length: completedWeek }, (_, index) => index + 1);
   const positions = [...new Set((league.roster_positions ?? [])
     .filter((position) => !["BN", "IR", "TAXI", "RES"].includes(position) && !position.includes("FLEX")))];
   const projectionPositions = [...new Set([...positions, "QB", "RB", "WR", "TE", "K", "DEF"])]
     .filter((position) => ["QB", "RB", "WR", "TE", "K", "DEF", "DL", "LB", "DB", "CB", "S", "DE", "DT"].includes(position));
-
   const [weeklyMatchups, weeklyTransactions, weeklyFeeds] = await Promise.all([
     Promise.all(weeks.map(async (week) => [week, await fetchJson<Matchup[]>(`${sleeperApi}/league/${leagueId}/matchups/${week}`, week === completedWeek ? 0 : 1800)] as const)),
     Promise.all(Array.from({ length: currentWeek }, async (_, index) => fetchJson<Transaction[]>(`${sleeperApi}/league/${leagueId}/transactions/${index + 1}`, 1800))),
     Promise.all(weeks.map(async (week) => {
       const [projectionPages, stats] = await Promise.all([
         Promise.all(projectionPositions.map((position) => fetchJson<PlayerFeedRow[]>(`${sleeperDataApi}/projections/nfl/${season}/${week}?season_type=${seasonType}&position=${position}`, 86_400))),
-        fetchJson<PlayerFeedRow[]>(`${sleeperDataApi}/stats/nfl/${season}/${week}?season_type=${seasonType}`, 86_400),
+        fetchJson<PlayerFeedRow[]>(`${sleeperDataApi}/stats/nfl/${season}/${week}?season_type=${seasonType}`, week === completedWeek ? 0 : 86_400),
       ]);
       return [week, projectionPages.flatMap((page) => page ?? []), stats ?? []] as const;
     })),
+
   ]);
 
   const matchupsByWeek = new Map<number, Matchup[]>(weeklyMatchups.map(([week, result]) => [week, result ?? []]));
@@ -428,6 +440,8 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
       const projectionMap = projectionsByWeek.get(week);
       const starterIds = matchup.starters ?? [];
       const projectedScores = starterIds.map((id) => {
+        const manual = manualPlayerProjections[season]?.[week]?.[id];
+        if (manual !== undefined) return manual;
         const row = projectionMap?.get(id);
         return row?.stats ? scoreProjection(row.stats, scoring) : null;
       });

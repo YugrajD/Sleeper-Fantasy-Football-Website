@@ -1,10 +1,24 @@
+import { weekEightRankings } from "@/lib/week-eight-rankings";
+
 export type PowerRank = {
   team: string;
   note: string;
   movement?: number;
+  details?: {
+    score: number;
+    record: string;
+    tier: string;
+    why: string;
+    weakness: string;
+    watch: string;
+    improve: string;
+    metrics: { label: string; value: string; rank?: number }[];
+    byes: string[];
+  };
 };
 
-export const powerRankings: Record<4 | 5 | 6, PowerRank[]> = {
+export const powerRankings: Record<4 | 5 | 6 | 8, PowerRank[]> = {
+  8: weekEightRankings,
   6: [
     { team: "Jerry Jones’s Auction", movement: 0, note: "Nothing much to say. Even in a down week, he won. After a loss..maybe it changes." },
     { team: "Team SWKL", movement: 1, note: "The core power of this team cannot be ignored. Bijan, Nico, Tae, Pickens..yeah this team is here. Let’s see if that 2 spot will be locked for season." },

@@ -58,6 +58,71 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .performance-chart > g line { stroke: var(--graphite); stroke-width: .8; stroke-dasharray: 3 5; }
 .performance-chart .chart-week-label { fill: var(--fog); font-size: 9px; letter-spacing: .03em; }
 .latest-rankings-section { padding-top: 0; }
+.rankings-edition { margin-bottom: 23px; }
+.edition-byline { margin: 16px 0 10px; color: var(--fog); font: 9px/1.7 var(--mono); letter-spacing: .035em; }
+.edition-byline > span { padding: 0 4px; color: var(--smoke); }
+.edition-lede { max-width: 580px; margin: 0 0 20px; color: var(--mist); font-size: clamp(19px, 3.6vw, 26px); line-height: 1.35; letter-spacing: -.035em; }
+.edition-folds { border-top: 1px solid var(--graphite); }
+.edition-folds > details { border-bottom: 1px solid var(--graphite); }
+.edition-folds summary { display: flex; min-height: 46px; align-items: center; justify-content: space-between; gap: 16px; color: var(--mist); font-size: 13px; cursor: pointer; list-style: none; }
+.edition-folds summary::-webkit-details-marker, .deep-ranking summary::-webkit-details-marker { display: none; }
+.edition-folds summary > span { color: var(--fog); font: 18px var(--mono); }
+.edition-folds details[open] summary > span { transform: rotate(45deg); }
+.edition-fold-content { max-width: 720px; padding: 0 0 17px; color: #aeb3ba; font-size: 14px; line-height: 1.7; }
+.edition-fold-content p { margin: 0 0 13px; }
+.edition-fold-content ul { display: grid; gap: 11px; padding-left: 20px; }
+.edition-fold-content strong { color: var(--mist); font-weight: 500; }
+.ranking-weights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 25px; margin: 20px 0; }
+.ranking-weights dt { display: flex; justify-content: space-between; gap: 10px; color: var(--mist); font-size: 13px; }
+.ranking-weights dt b { color: var(--lime); font: 12px var(--mono); }
+.ranking-weights dd { margin: 4px 0 0; color: var(--fog); font-size: 12px; }
+.edition-hint { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin: 14px 0 0; color: var(--fog); font-size: 11px; }
+.edition-hint > span { color: var(--ash); }
+.deep-ranking-row { list-style: none; }
+.ranking-tier { margin: 24px 0 6px; color: var(--fog); font: 10px var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+.deep-ranking { border-bottom: 1px solid var(--graphite); }
+.deep-ranking > summary { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto 16px; align-items: center; gap: 10px; padding: 19px 0; cursor: pointer; list-style: none; }
+.deep-ranking summary:focus-visible, .edition-folds summary:focus-visible { outline: 1px solid var(--lime); outline-offset: 4px; }
+.deep-ranking-identity { display: grid; gap: 6px; min-width: 0; }
+.deep-ranking-identity > strong { color: var(--mist); font-size: 16px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
+.deep-ranking-identity > span { display: flex; align-items: center; gap: 6px; color: var(--ash); font: 9px var(--mono); }
+.deep-ranking-identity > span > b { color: var(--fog); font-weight: 400; }
+.deep-ranking-identity .rank-movement { margin-left: 6px; font-size: 10px; }
+.deep-ranking-score { display: grid; justify-items: end; gap: 3px; }
+.deep-ranking-score > b { color: var(--paper); font: 24px var(--mono); letter-spacing: -.055em; }
+.deep-ranking-score > small { color: var(--ash); font: 7px var(--mono); letter-spacing: .025em; }
+.deep-ranking-chevron { color: var(--fog); font: 17px var(--mono); text-align: center; }
+.deep-ranking[open] .deep-ranking-chevron { transform: rotate(45deg); color: var(--lime); }
+.deep-ranking-preview { display: -webkit-box; grid-column: 2 / -1; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: var(--fog); font-size: 13px; line-height: 1.6; }
+.deep-ranking[open] .deep-ranking-preview { display: none; }
+.deep-ranking-content { padding: 0 0 24px 40px; }
+.deep-ranking-overview { max-width: 720px; margin: 0 0 22px; color: #bbc0c7; font-size: 15px; line-height: 1.75; }
+.ranking-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0 0 25px; border-top: 1px solid var(--graphite); }
+.ranking-metrics > div { min-width: 0; padding: 13px 12px 13px 0; border-bottom: 1px solid var(--graphite); }
+.ranking-metrics dt { color: var(--fog); font-size: 10px; line-height: 1.5; }
+.ranking-metrics dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; margin: 5px 0 0; color: var(--mist); font: 17px var(--mono); letter-spacing: -.035em; }
+.ranking-metrics dd > span { color: var(--ash); font-size: 10px; }
+.ranking-analysis { display: grid; gap: 20px; max-width: 720px; margin: 0; }
+.ranking-analysis dt { margin-bottom: 5px; color: var(--mist); font-size: 12px; font-weight: 500; }
+.ranking-analysis dd { margin: 0; color: #aeb3ba; font-size: 14px; line-height: 1.75; }
+.ranking-analysis > div:last-child { padding-left: 14px; border-left: 2px solid #69721d; }
+.ranking-byes { max-width: 720px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--graphite); }
+.ranking-byes h4 { margin: 0 0 10px; color: var(--mist); font-size: 12px; font-weight: 500; }
+.ranking-byes h4 > span { margin-left: 10px; color: var(--ash); font-size: 10px; font-weight: 400; }
+.ranking-byes ul { display: grid; gap: 7px; margin: 0; padding: 0; color: var(--fog); font-size: 12px; line-height: 1.6; list-style: none; }
+.edition-source { max-width: 730px; margin: 23px 0 0; color: var(--fog); font-size: 11px; line-height: 1.7; }
+@media (max-width: 600px) {
+  .edition-byline { font-size: 8px; }
+  .ranking-weights { grid-template-columns: 1fr; gap: 13px; }
+  .deep-ranking > summary { grid-template-columns: 23px minmax(0, 1fr) auto 12px; gap: 8px; padding: 18px 0; }
+  .deep-ranking-identity > strong { font-size: 14px; }
+  .deep-ranking-score > b { font-size: 22px; }
+  .deep-ranking-content { padding-left: 0; }
+  .deep-ranking-overview { font-size: 14px; }
+  .ranking-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ranking-metrics dt { font-size: 11px; }
+  .ranking-metrics dd { font-size: 18px; }
+}
 .rankings-section-heading { align-items: end; margin-bottom: 12px; }
 .week-picker, .team-picker { display: grid; min-width: 111px; gap: 5px; }
 .week-picker > span, .team-picker > span { color: var(--ash); font-family: var(--mono); font-size: 9px; letter-spacing: .07em; }

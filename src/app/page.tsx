@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import { powerRankings } from "@/lib/power-rankings";
+import { powerRankings, type PowerRank } from "@/lib/power-rankings";
 import type { LeagueAnalytics, TeamAnalytics, TradeAnalytics } from "@/lib/analytics";
 
-type RankingWeek = 4 | 5 | 6;
+type RankingWeek = keyof typeof powerRankings;
 type TabId = "rankings" | "optimal" | "projections" | "trades" | "averages" | "positions" | "schedule";
 
 const tabs: { id: TabId; label: string }[] = [
@@ -31,8 +31,8 @@ const positionNames: Record<FantasyPosition, string> = {
 };
 function movementFor(week: RankingWeek, team: string, rank: number) {
   const current = powerRankings[week].find((entry) => entry.team === team);
-  const previousWeek = (week - 1) as RankingWeek;
-  const previousRank = powerRankings[previousWeek].findIndex((entry) => entry.team === team) + 1;
+  const previousWeek = Math.max(...Object.keys(powerRankings).map(Number).filter((value) => value < week)) as RankingWeek;
+  const previousRank = (powerRankings[previousWeek]?.findIndex((entry) => entry.team === team) ?? -1) + 1;
   if (current?.movement !== undefined) return movementLabel(current.movement, previousWeek);
   if (previousRank < 1) return null;
   return movementLabel(previousRank - rank, previousWeek);
@@ -54,20 +54,65 @@ function signed(value: number) {
 }
 
 function RankingsView() {
-  const [week, setWeek] = useState<RankingWeek>(6);
+  const [week, setWeek] = useState<RankingWeek>(8);
   const rankings = powerRankings[week];
   return <section className="analytics-section latest-rankings-section" aria-labelledby="rankings-title">
     <div className="section-heading rankings-section-heading">
       <h2 id="rankings-title">Power rankings</h2>
-      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}><option value={6}>Week 6</option><option value={5}>Week 5</option><option value={4}>Week 4</option></select></label>
+      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}>{Object.keys(powerRankings).map(Number).sort((a, b) => b - a).map((value) => <option value={value} key={value}>Week {value}</option>)}</select></label>
     </div>
+    {week === 8 && <RankingsEditionIntro />}
     <ol className="rankings-list" aria-label={`Week ${week} power rankings`}>
-      {rankings.map(({ team, note }, index) => {
+      {rankings.map((entry, index) => {
+        const { team, note, details } = entry;
         const movement = week > 4 ? movementFor(week, team, index + 1) : null;
+        if (details) return <li className="deep-ranking-row" key={`${week}-${team}`}>{details.tier !== rankings[index - 1]?.details?.tier && <h3 className="ranking-tier">{details.tier}</h3>}<InDepthRanking entry={entry} rank={index + 1} movement={movement} /></li>;
         return <li className="ranking-row" key={team}><div className="ranking-row-heading"><span className={`rank-number${index === 0 ? " rank-number-first" : ""}`}>{String(index + 1).padStart(2, "0")}</span><h3>{team}</h3>{movement && <span className={`rank-movement ${movement.className}`} aria-label={movement.label}>{movement.text}</span>}</div><p>{note}</p></li>;
       })}
     </ol>
+    {week === 8 && <p className="edition-source">Published October 29, 2026 by Harshith Karuturi. Source: UCDegens Sleeper data and projections through Week 7. Week 8 results are excluded; injuries and rosters reflect the publication date. Expected scoring covers Weeks 8–14.</p>}
   </section>;
+}
+
+function RankingsEditionIntro() {
+  const weights = [
+    ["Record", "15%", "Win-loss record."],
+    ["Point differential", "10%", "Points scored minus points allowed, per week."],
+    ["All-play record", "20%", "Your record against every team each week, reducing matchup luck."],
+    ["Lineup today", "20%", "What the best healthy lineup should score entering Week 8."],
+    ["Expected scoring", "15%", "Expected points per week in Weeks 8–14, with byes and injuries."],
+    ["Momentum", "10%", "Average score over the last three weeks."],
+    ["Lineup efficiency", "5%", "The share of possible points the manager actually started."],
+    ["Remaining schedule", "5%", "How strong the remaining opponents are; easier is better."],
+  ];
+  return <div className="rankings-edition">
+    <p className="edition-byline">OCT 29, 2026 <span>·</span> HARSHITH KARUTURI <span>·</span> RESULTS THROUGH W7</p>
+    <p className="edition-lede">Seven weeks in. The “it’s still early” excuse has expired.</p>
+    <div className="edition-folds">
+      <details><summary>The week at a glance <span aria-hidden="true">+</span></summary><div className="edition-fold-content"><p>Welcome to Week 8, degens. We’re officially in the back half of the season, which means the “it’s still early” excuse has expired. Seven weeks in, a few of you are getting lucky, a few of you are getting robbed, and some of you are leaving 20 points a week on your bench (you know who you are).</p><p>The good news: nobody has ever won a title in October. Eight playoff spots, seven weeks left, and plenty of time to turn it around. Even you, Bye Week. Set your lineups, check your byes, and let’s get into it.</p><ul><li><strong>Jerry Jones’s Auction leads.</strong> Best record, point differential (+147.80), all-play record (56-21), and lineup today.</li><li><strong>HertzTushRentals is the biggest threat.</strong> The hottest team and the best expected scoring the rest of the way.</li><li><strong>Luck is real.</strong> Maye Chase McCooks is about one win ahead of its scoring; Brandon Aubrey Sinclair is 1.4 behind, and Jacobs Combos is about one behind.</li><li><strong>SWKL falls to fifth.</strong> Its 5-2 record runs ahead of its all-play record and roster.</li><li><strong>Watch Week 11.</strong> Six NFL teams are off, and six league teams lose at least two starters.</li></ul></div></details>
+      <details><summary>How the power score works <span aria-hidden="true">+</span></summary><div className="edition-fold-content"><p>Every team gets the same formula. Each input is scored against the league average: <strong>100 is average</strong>, and a 10-point gap is substantial.</p><dl className="ranking-weights">{weights.map(([label, weight, description]) => <div key={label}><dt>{label}<b>{weight}</b></dt><dd>{description}</dd></div>)}</dl><p>Lineup and expected scoring lean on Sleeper projections, which run lower than actual scoring. Compare teams against one another. Luck measures actual wins minus wins implied by the all-play record: positive means lucky, negative means unlucky.</p></div></details>
+    </div>
+    <p className="edition-hint">Tap a team for its full breakdown <span>Power score · 100 = league average</span></p>
+  </div>;
+}
+
+function InDepthRanking({ entry, rank, movement }: { entry: PowerRank; rank: number; movement: ReturnType<typeof movementFor> }) {
+  const detail = entry.details!;
+  return <details className="deep-ranking">
+    <summary>
+      <span className={`rank-number${rank === 1 ? " rank-number-first" : ""}`}>{String(rank).padStart(2, "0")}</span>
+      <span className="deep-ranking-identity"><strong>{entry.team}</strong><span><b>{detail.record}</b> RECORD {movement && <span className={`rank-movement ${movement.className}`} aria-label={movement.label}>{movement.text}</span>}</span></span>
+      <span className="deep-ranking-score"><b>{detail.score.toFixed(1)}</b><small>POWER SCORE</small></span>
+      <span className="deep-ranking-chevron" aria-hidden="true">+</span>
+      <span className="deep-ranking-preview">{entry.note}</span>
+    </summary>
+    <div className="deep-ranking-content">
+      <p className="deep-ranking-overview">{entry.note}</p>
+      <dl className="ranking-metrics">{detail.metrics.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}{metric.rank !== undefined && <span>#{metric.rank}</span>}</dd></div>)}</dl>
+      <dl className="ranking-analysis">{[["Why here", detail.why], ["Weakness", detail.weakness], ["Watch out", detail.watch], ["How to improve", detail.improve]].map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>
+      <div className="ranking-byes"><h4>Bye-week crunch <span>2+ starters out</span></h4><ul>{detail.byes.map((bye) => <li key={bye}>{bye}</li>)}</ul></div>
+    </div>
+  </details>;
 }
 
 function OptimalStandings({ teams, throughWeek }: { teams: TeamAnalytics[]; throughWeek: number }) {
