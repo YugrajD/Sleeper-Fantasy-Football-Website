@@ -52,6 +52,18 @@ button, select { color: inherit; font: inherit; -webkit-tap-highlight-color: tra
 .section-heading h2 { margin: 0; color: var(--paper); font-size: 18px; font-weight: 400; letter-spacing: -.02em; }
 .section-meta { color: var(--fog); font-family: var(--mono); font-size: 10px; white-space: nowrap; }
 .section-description { max-width: 680px; margin: 8px 0 13px; color: var(--fog); font-size: 12px; line-height: 1.55; }
+.empty-analytics.pick-em-empty { margin-top: 14px; font-size: 14px; }
+.pick-em-polls { margin-top: 16px; border-top: 1px solid var(--graphite); }
+.pick-em-poll { padding: 18px 0; border-bottom: 1px solid var(--graphite); }
+.pick-em-poll-heading, .pick-em-option { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.pick-em-poll-heading h3 { margin: 0; color: var(--paper); font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.pick-em-poll-heading > span, .pick-em-option > span:last-child { flex: 0 0 auto; color: var(--fog); font: 11px/1.5 var(--mono); }
+.pick-em-poll ul { display: grid; gap: 13px; margin: 16px 0 0; padding: 0; list-style: none; }
+.pick-em-option { color: var(--mist); font-size: 14px; overflow-wrap: anywhere; }
+.pick-em-track { height: 5px; margin-top: 6px; overflow: hidden; border-radius: 3px; background: var(--graphite); }
+.pick-em-track > div { height: 100%; border-radius: inherit; background: var(--lime); }
+.pick-em-voters { margin: 7px 0 0; color: var(--fog); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.pick-em-voters strong { color: var(--mist); font-weight: 500; }
 .performance-chart-wrap { overflow: hidden; border: 1px solid var(--graphite); border-radius: 7px; background: #0b0c0d; }
 .performance-chart { display: block; width: 100%; height: auto; }
 .performance-chart text { fill: var(--ash); font-family: var(--mono); font-size: 9px; }

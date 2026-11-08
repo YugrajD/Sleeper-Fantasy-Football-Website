@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { pickEmVoteCount, pickEmWeeks } from "@/lib/pick-em";
 import { powerRankings, type PowerRank } from "@/lib/power-rankings";
 import type { LeagueAnalytics, TeamAnalytics, TradeAnalytics } from "@/lib/analytics";
 
 type RankingWeek = keyof typeof powerRankings;
-type TabId = "rankings" | "optimal" | "projections" | "trades" | "averages" | "positions" | "schedule";
+type TabId = "rankings" | "pick-em" | "optimal" | "projections" | "trades" | "averages" | "positions" | "schedule";
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "rankings", label: "Power rankings" },
+  { id: "pick-em", label: "Pick ’Em" },
   { id: "trades", label: "Trades" },
   { id: "projections", label: "Projections" },
   { id: "positions", label: "Positions" },
@@ -339,6 +341,43 @@ function PositionRankingsView({ teams, season, throughWeek }: { teams: TeamAnaly
   </section>;
 }
 
+const publishedPickEmWeeks = pickEmWeeks.filter(({ polls }) => polls.length > 0).sort((a, b) => b.week - a.week);
+
+function PickEmView() {
+  const [selectedWeek, setSelectedWeek] = useState(publishedPickEmWeeks[0]?.week);
+  const edition = publishedPickEmWeeks.find(({ week }) => week === selectedWeek);
+
+  return <section className="analytics-section" aria-labelledby="pick-em-title">
+    <div className="section-heading">
+      <h2 id="pick-em-title">League poll results</h2>
+      {edition && <label className="week-picker"><span>WEEK</span><select aria-label="Choose Pick ’Em week" value={edition.week} onChange={(event) => setSelectedWeek(Number(event.target.value))}>{publishedPickEmWeeks.map(({ week }) => <option key={week} value={week}>Week {week}</option>)}</select></label>}
+    </div>
+    {!edition ? <div className="empty-analytics pick-em-empty">No poll results have been posted yet.</div> : <div className="pick-em-polls">
+      {edition.polls.map(({ question, options }, index) => {
+        const total = options.reduce((sum, option) => sum + pickEmVoteCount(option), 0);
+        return <article className="pick-em-poll" key={`${edition.week}-${index}`}>
+          <div className="pick-em-poll-heading"><h3>{question}</h3><span>{total} {total === 1 ? "vote" : "votes"}</span></div>
+          <ul>
+            {options.map((option) => {
+              const { label, voters } = option;
+              const votes = pickEmVoteCount(option);
+              const share = total > 0 ? votes / total * 100 : 0;
+              const names = voters?.filter((name) => name !== null) ?? [];
+              const unnamed = (voters?.length ?? 0) - names.length;
+              const voterLabels = unnamed > 0 ? [...names, unnamed === 1 ? "Anonymous" : `${unnamed} anonymous voters`] : names;
+              return <li key={label}>
+                <div className="pick-em-option"><span>{label}</span><span>{votes} {votes === 1 ? "vote" : "votes"} · {Number(share.toFixed(1))}%</span></div>
+                <div className="pick-em-track" aria-hidden="true"><div style={{ width: `${share}%` }} /></div>
+                {voterLabels.length > 0 && <p className="pick-em-voters"><strong>Voters:</strong> {voterLabels.join(", ")}</p>}
+              </li>;
+            })}
+          </ul>
+        </article>;
+      })}
+    </div>}
+  </section>;
+}
+
 function AnalyticsTabs({ active, onChange }: { active: TabId; onChange: (id: TabId) => void }) {
   return <div className="analytics-tabs" role="tablist" aria-label="League analytics"><div className="analytics-tabs-inner">{tabs.map((tab) => <button key={tab.id} className={`analytics-tab${active === tab.id ? " active" : ""}`} type="button" role="tab" id={`tab-${tab.id}`} aria-selected={active === tab.id} aria-controls="analytics-panel" onClick={() => onChange(tab.id)}>{tab.label}</button>)}</div></div>;
 }
@@ -365,15 +404,17 @@ export default function Home() {
 
   const tabTitle = tabs.find((tab) => tab.id === activeTab)?.label ?? "Power rankings";
   const orderedTeams = analytics?.teams ?? [];
+  const needsAnalytics = activeTab !== "rankings" && activeTab !== "pick-em";
 
   return <div className="site-shell" id="home">
     <main className="main-content analytics-content">
-      <div className="analytics-page-heading"><h1>{tabTitle}</h1>{analytics && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
+      <div className="analytics-page-heading"><h1>{tabTitle}</h1>{analytics && activeTab !== "pick-em" && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
       <AnalyticsTabs active={activeTab} onChange={setActiveTab} />
       <div className="tab-panel" id="analytics-panel" role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
         {activeTab === "rankings" && <RankingsView />}
-        {error && activeTab !== "rankings" && <div className="analytics-error" role="status">{error}</div>}
-        {!error && !analytics && activeTab !== "rankings" && <div className="analytics-loading"><strong>Loading league history</strong><span>Fetching completed weeks from Sleeper…</span></div>}
+        {activeTab === "pick-em" && <PickEmView />}
+        {error && needsAnalytics && <div className="analytics-error" role="status">{error}</div>}
+        {!error && !analytics && needsAnalytics && <div className="analytics-loading"><strong>Loading league history</strong><span>Fetching completed weeks from Sleeper…</span></div>}
         {analytics && activeTab === "optimal" && <OptimalStandings teams={orderedTeams} throughWeek={analytics.throughWeek} />}
         {analytics && activeTab === "projections" && <ProjectionChart teams={orderedTeams} throughWeek={analytics.throughWeek} />}
         {analytics && activeTab === "trades" && <TradesView trades={analytics.trades} throughWeek={analytics.throughWeek} />}

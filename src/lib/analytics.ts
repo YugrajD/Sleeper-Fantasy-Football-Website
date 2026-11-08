@@ -36,16 +36,11 @@ type PlayerFeedRow = {
   stats?: Record<string, unknown>;
 };
 
-// Manager-supplied player projections, keyed by season, week, and Sleeper player ID.
-const manualPlayerProjections: Record<string, Record<number, Record<string, number>>> = {
-  "2026": { 8: { "13287": 9.2 } }, // Jeremiyah Love
-};
-
 // Manager-supplied team totals fill weeks where Sleeper's projection feed is incomplete.
 const manualTeamProjections: Array<{ teamAliases: string[]; weeks: Record<number, number> }> = [
   { teamAliases: ["dartvader"], weeks: { 4: 98.2, 5: 102.78 } },
   { teamAliases: ["brandonaubreysinclair"], weeks: { 4: 122.01 } },
-  { teamAliases: ["mayechasemccooks"], weeks: { 4: 108.87 } },
+  { teamAliases: ["mayechasemccooks"], weeks: { 4: 108.87, 8: 114.91 } },
   { teamAliases: ["bride"], weeks: { 4: 108.87 } },
   { teamAliases: ["byeweek"], weeks: { 3: 116.81 } },
   { teamAliases: ["jacobs"], weeks: { 3: 111.75 } },
@@ -440,8 +435,6 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
       const projectionMap = projectionsByWeek.get(week);
       const starterIds = matchup.starters ?? [];
       const projectedScores = starterIds.map((id) => {
-        const manual = manualPlayerProjections[season]?.[week]?.[id];
-        if (manual !== undefined) return manual;
         const row = projectionMap?.get(id);
         return row?.stats ? scoreProjection(row.stats, scoring) : null;
       });
