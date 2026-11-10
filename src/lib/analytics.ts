@@ -1,4 +1,6 @@
+import { cleanPlayerName, fetchJson, positionFor, scoreProjection, slotEligibility } from "@/lib/sleeper-helpers";
 import { leagueId } from "@/lib/sleeper";
+import { completedSleeperWeek } from "@/lib/season-progress";
 
 const sleeperApi = "https://api.sleeper.app/v1";
 const sleeperDataApi = "https://api.sleeper.com";
@@ -36,14 +38,21 @@ type PlayerFeedRow = {
   stats?: Record<string, unknown>;
 };
 
+// Manager-supplied player projections by season, week, and Sleeper player ID.
+const manualPlayerProjections: Partial<Record<string, Partial<Record<number, Record<string, number>>>>> = {
+  "2026": { 9: { "12481": 0 } }, // Cam Skattebo
+};
+
 // Manager-supplied team totals fill weeks where Sleeper's projection feed is incomplete.
 const manualTeamProjections: Array<{ teamAliases: string[]; weeks: Record<number, number> }> = [
   { teamAliases: ["dartvader"], weeks: { 4: 98.2, 5: 102.78 } },
+  { teamAliases: ["daddymundo"], weeks: { 4: 98.2 } },
   { teamAliases: ["brandonaubreysinclair"], weeks: { 4: 122.01 } },
   { teamAliases: ["mayechasemccooks"], weeks: { 4: 108.87, 8: 114.91 } },
   { teamAliases: ["bride"], weeks: { 4: 108.87 } },
   { teamAliases: ["byeweek"], weeks: { 3: 116.81 } },
   { teamAliases: ["jacobs"], weeks: { 3: 111.75 } },
+  { teamAliases: ["imovulating"], weeks: { 3: 111.75 } },
   { teamAliases: ["swkl"], weeks: { 6: 117.88 } },
 ];
 
@@ -120,19 +129,6 @@ export type LeagueAnalytics = {
   note: string;
 };
 
-async function fetchJson<T>(url: string, revalidate: number): Promise<T | null> {
-  try {
-    const response = await fetch(url, {
-      ...(revalidate === 0 ? { cache: "no-store" as const } : { next: { revalidate } }),
-      headers: { Accept: "application/json" },
-    });
-    if (!response.ok) return null;
-    return (await response.json()) as T;
-  } catch {
-    return null;
-  }
-}
-
 function userForRoster(rosterId: number, rosters: Roster[], users: User[]) {
   const roster = rosters.find((entry) => entry.roster_id === rosterId);
   return users.find((entry) => entry.user_id === roster?.owner_id);
@@ -146,39 +142,6 @@ function teamName(rosterId: number, rosters: Roster[], users: User[]) {
 function matchupResult(score: number, opponentScore: number): "W" | "L" | "T" {
   if (Math.abs(score - opponentScore) < 0.001) return "T";
   return score > opponentScore ? "W" : "L";
-}
-
-function cleanPlayerName(id: string, players: Record<string, Player>) {
-  const player = players[id];
-  return player ? [player.first_name, player.last_name].filter(Boolean).join(" ") || id : id;
-}
-
-function scoreProjection(stats: Record<string, unknown>, scoring: Record<string, number>) {
-  let score = 0;
-  let matches = 0;
-  for (const [stat, multiplier] of Object.entries(scoring)) {
-    const value = Number(stats[stat]);
-    if (!Number.isFinite(value)) continue;
-    score += value * multiplier;
-    matches += 1;
-  }
-  return matches ? score : null;
-}
-
-function slotEligibility(slot: string): string[] {
-  if (["FLEX", "REC_FLEX", "WRRB_FLEX", "RB_WR_TE"].includes(slot)) return ["RB", "WR", "TE"];
-  if (["SUPER_FLEX", "QB_FLEX", "QB_RB_WR_TE"].includes(slot)) return ["QB", "RB", "WR", "TE"];
-  if (slot === "IDP_FLEX") return ["DL", "LB", "DB"];
-  if (slot === "DL_FLEX") return ["DL", "DE", "DT"];
-  if (slot === "DB_FLEX") return ["DB", "CB", "S"];
-  if (slot === "LB_FLEX") return ["LB"];
-  return [slot];
-}
-
-function positionFor(id: string, players: Record<string, Player>) {
-  if (["ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LAC", "LAR", "LV", "MIA", "MIN", "NE", "NO", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"].includes(id)) return ["DEF"];
-  const player = players[id];
-  return player?.fantasy_positions?.length ? player.fantasy_positions : player?.position ? [player.position] : [];
 }
 
 function optimalLineupPoints(matchup: Matchup, positions: string[], players: Record<string, Player>) {
@@ -368,11 +331,7 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
   // `display_week` can lag behind the NFL state after a week ends; prefer `week`
   // so the just-completed week is included in historical analytics.
   const currentWeek = Math.max(1, Number(state.week ?? state.display_week ?? 1));
-  // Sleeper can keep the active week selected after its Monday night game is final.
-  // Include confirmed finals immediately instead of waiting for its global state to advance.
-  const manuallyConfirmedCompletedWeeks: Record<string, number[]> = { "2026": [7, 8] };
-  const confirmedWeek = Math.max(0, ...(manuallyConfirmedCompletedWeeks[season] ?? []));
-  const completedWeek = Math.min(18, Math.max(currentWeek - 1, confirmedWeek));
+  const completedWeek = Math.min(18, completedSleeperWeek(season, currentWeek, league.settings?.last_scored_leg));
   const weeks = Array.from({ length: completedWeek }, (_, index) => index + 1);
   const positions = [...new Set((league.roster_positions ?? [])
     .filter((position) => !["BN", "IR", "TAXI", "RES"].includes(position) && !position.includes("FLEX")))];
@@ -433,10 +392,11 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
       if (!matchup) continue;
       const actual = Number(matchup.custom_points ?? matchup.points ?? 0);
       const projectionMap = projectionsByWeek.get(week);
+      const playerOverrides = manualPlayerProjections[season]?.[week];
       const starterIds = matchup.starters ?? [];
       const projectedScores = starterIds.map((id) => {
         const row = projectionMap?.get(id);
-        return row?.stats ? scoreProjection(row.stats, scoring) : null;
+        return playerOverrides?.[id] ?? (row?.stats ? scoreProjection(row.stats, scoring) : null);
       });
       const allProjected = projectedScores.length > 0 && projectedScores.every((score) => score !== null);
       const generatedProjection = allProjected ? projectedScores.reduce<number>((sum, score) => sum + (score ?? 0), 0) : null;

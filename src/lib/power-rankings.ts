@@ -1,4 +1,5 @@
 import { weekEightRankings } from "@/lib/week-eight-rankings";
+import { weekNineRankings } from "@/lib/week-nine-rankings";
 
 export type PowerRank = {
   team: string;
@@ -12,12 +13,13 @@ export type PowerRank = {
     weakness: string;
     watch: string;
     improve: string;
-    metrics: { label: string; value: string; rank?: number }[];
+    metrics: { label: string; value: string; rank?: number; tied?: boolean }[];
     byes: string[];
   };
 };
 
-export const powerRankings: Record<4 | 5 | 6 | 8, PowerRank[]> = {
+export const powerRankings: Record<4 | 5 | 6 | 8 | 9, PowerRank[]> = {
+  9: weekNineRankings,
   8: weekEightRankings,
   6: [
     { team: "Jerry Jones’s Auction", movement: 0, note: "Nothing much to say. Even in a down week, he won. After a loss..maybe it changes." },

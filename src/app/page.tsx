@@ -6,6 +6,7 @@ import { powerRankings, type PowerRank } from "@/lib/power-rankings";
 import type { LeagueAnalytics, TeamAnalytics, TradeAnalytics } from "@/lib/analytics";
 
 type RankingWeek = keyof typeof powerRankings;
+const rankingWeeks = Object.keys(powerRankings).map(Number).sort((a, b) => b - a) as RankingWeek[];
 type TabId = "rankings" | "pick-em" | "optimal" | "projections" | "trades" | "averages" | "positions" | "schedule";
 
 const tabs: { id: TabId; label: string }[] = [
@@ -56,14 +57,14 @@ function signed(value: number) {
 }
 
 function RankingsView() {
-  const [week, setWeek] = useState<RankingWeek>(8);
+  const [week, setWeek] = useState<RankingWeek>(rankingWeeks[0]);
   const rankings = powerRankings[week];
   return <section className="analytics-section latest-rankings-section" aria-labelledby="rankings-title">
     <div className="section-heading rankings-section-heading">
       <h2 id="rankings-title">Power rankings</h2>
-      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}>{Object.keys(powerRankings).map(Number).sort((a, b) => b - a).map((value) => <option value={value} key={value}>Week {value}</option>)}</select></label>
+      <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}>{rankingWeeks.map((value) => <option value={value} key={value}>Week {value}</option>)}</select></label>
     </div>
-    {week === 8 && <RankingsEditionIntro />}
+    {(week === 8 || week === 9) && <RankingsEditionIntro key={week} week={week} />}
     <ol className="rankings-list" aria-label={`Week ${week} power rankings`}>
       {rankings.map((entry, index) => {
         const { team, note, details } = entry;
@@ -73,26 +74,37 @@ function RankingsView() {
       })}
     </ol>
     {week === 8 && <p className="edition-source">Published October 29, 2026 by Harshith Karuturi. Source: UCDegens Sleeper data and projections through Week 7. Week 8 results are excluded; injuries and rosters reflect the publication date. Expected scoring covers Weeks 8–14.</p>}
+    {week === 9 && <p className="edition-source">Published November 4, 2026 by Harshith Karuturi. Records and results are through Week 8. Roster outlook, projections, lineup efficiency, and remaining schedule carry over from the October 29 edition.</p>}
   </section>;
 }
 
-function RankingsEditionIntro() {
+function RankingsEditionIntro({ week }: { week: 8 | 9 }) {
+  const isWeekNine = week === 9;
   const weights = [
     ["Record", "15%", "Win-loss record."],
     ["Point differential", "10%", "Points scored minus points allowed, per week."],
     ["All-play record", "20%", "Your record against every team each week, reducing matchup luck."],
-    ["Lineup today", "20%", "What the best healthy lineup should score entering Week 8."],
+    ["Lineup today", "20%", "What the best healthy lineup should score in a week."],
     ["Expected scoring", "15%", "Expected points per week in Weeks 8–14, with byes and injuries."],
     ["Momentum", "10%", "Average score over the last three weeks."],
     ["Lineup efficiency", "5%", "The share of possible points the manager actually started."],
     ["Remaining schedule", "5%", "How strong the remaining opponents are; easier is better."],
   ];
   return <div className="rankings-edition">
-    <p className="edition-byline">OCT 29, 2026 <span>·</span> HARSHITH KARUTURI <span>·</span> RESULTS THROUGH W7</p>
-    <p className="edition-lede">Seven weeks in. The “it’s still early” excuse has expired.</p>
+    <p className="edition-byline">{isWeekNine ? "NOV 4, 2026" : "OCT 29, 2026"} <span>·</span> HARSHITH KARUTURI <span>·</span> RESULTS THROUGH W{week - 1}</p>
+    <p className="edition-lede">{isWeekNine ? "HertzTushRentals takes No. 1 as the standings bunch up." : "Seven weeks in. The “it’s still early” excuse has expired."}</p>
     <div className="edition-folds">
+      {isWeekNine ? <details><summary>The week at a glance <span aria-hidden="true">+</span></summary><div className="edition-fold-content"><ul>
+        <li><strong>New No. 1: HertzTushRentals.</strong> The league’s hottest team for a third straight week, averaging 143.00 over its last three games.</li>
+        <li><strong>Jerry Jones’s Auction slips to second.</strong> Its 76.26 against KirK Kousins was the week’s lowest score, but it still leads in lineup strength.</li>
+        <li><strong>KirK Kousins climbs to third.</strong> The week’s high score of 142.68 pushed its league-leading point differential to +121.70.</li>
+        <li><strong>SWKL stays fifth at 6–2.</strong> Its record is about 1.5 wins ahead of what its all-play record suggests.</li>
+        <li><strong>The middle is crowded.</strong> Just 1.3 power score points separate sixth and eighth.</li>
+        <li><strong>Watch Week 11.</strong> Six NFL teams are off, and several contenders lose at least two starters.</li>
+      </ul></div></details> :
       <details><summary>The week at a glance <span aria-hidden="true">+</span></summary><div className="edition-fold-content"><p>Welcome to Week 8, degens. We’re officially in the back half of the season, which means the “it’s still early” excuse has expired. Seven weeks in, a few of you are getting lucky, a few of you are getting robbed, and some of you are leaving 20 points a week on your bench (you know who you are).</p><p>The good news: nobody has ever won a title in October. Eight playoff spots, seven weeks left, and plenty of time to turn it around. Even you, Bye Week. Set your lineups, check your byes, and let’s get into it.</p><ul><li><strong>Jerry Jones’s Auction leads.</strong> Best record, point differential (+147.80), all-play record (56-21), and lineup today.</li><li><strong>HertzTushRentals is the biggest threat.</strong> The hottest team and the best expected scoring the rest of the way.</li><li><strong>Luck is real.</strong> Maye Chase McCooks is about one win ahead of its scoring; Brandon Aubrey Sinclair is 1.4 behind, and Jacobs Combos is about one behind.</li><li><strong>SWKL falls to fifth.</strong> Its 5-2 record runs ahead of its all-play record and roster.</li><li><strong>Watch Week 11.</strong> Six NFL teams are off, and six league teams lose at least two starters.</li></ul></div></details>
-      <details><summary>How the power score works <span aria-hidden="true">+</span></summary><div className="edition-fold-content"><p>Every team gets the same formula. Each input is scored against the league average: <strong>100 is average</strong>, and a 10-point gap is substantial.</p><dl className="ranking-weights">{weights.map(([label, weight, description]) => <div key={label}><dt>{label}<b>{weight}</b></dt><dd>{description}</dd></div>)}</dl><p>Lineup and expected scoring lean on Sleeper projections, which run lower than actual scoring. Compare teams against one another. Luck measures actual wins minus wins implied by the all-play record: positive means lucky, negative means unlucky.</p></div></details>
+      }
+      <details><summary>How the power score works <span aria-hidden="true">+</span></summary><div className="edition-fold-content"><p>Every team gets the same formula. Each input is scored against the league average: <strong>100 is average</strong>, and a 10-point gap is substantial.</p><dl className="ranking-weights">{weights.map(([label, weight, description]) => <div key={label}><dt>{label}<b>{weight}</b></dt><dd>{description}</dd></div>)}</dl><p>Lineup and expected scoring lean on Sleeper projections, which run lower than actual scoring. Compare teams against one another. Luck measures actual wins minus wins implied by the all-play record: positive means lucky, negative means unlucky.</p>{isWeekNine && <p>The results and momentum include Week 8. Lineup strength, expected scoring, lineup efficiency, and remaining schedule use the October 29 snapshot.</p>}</div></details>
     </div>
     <p className="edition-hint">Tap a team for its full breakdown <span>Power score · 100 = league average</span></p>
   </div>;
@@ -110,9 +122,9 @@ function InDepthRanking({ entry, rank, movement }: { entry: PowerRank; rank: num
     </summary>
     <div className="deep-ranking-content">
       <p className="deep-ranking-overview">{entry.note}</p>
-      <dl className="ranking-metrics">{detail.metrics.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}{metric.rank !== undefined && <span>#{metric.rank}</span>}</dd></div>)}</dl>
+      <dl className="ranking-metrics">{detail.metrics.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}{metric.rank !== undefined && <span>{metric.tied ? "T-" : ""}#{metric.rank}</span>}</dd></div>)}</dl>
       <dl className="ranking-analysis">{[["Why here", detail.why], ["Weakness", detail.weakness], ["Watch out", detail.watch], ["How to improve", detail.improve]].map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>
-      <div className="ranking-byes"><h4>Bye-week crunch <span>2+ starters out</span></h4><ul>{detail.byes.map((bye) => <li key={bye}>{bye}</li>)}</ul></div>
+      <div className="ranking-byes"><h4>Bye-week crunch <span>2+ starters out</span></h4><ul>{detail.byes.length ? detail.byes.map((bye) => <li key={bye}>{bye}</li>) : <li>No remaining weeks with two or more starters on bye.</li>}</ul></div>
     </div>
   </details>;
 }
@@ -408,7 +420,7 @@ export default function Home() {
 
   return <div className="site-shell" id="home">
     <main className="main-content analytics-content">
-      <div className="analytics-page-heading"><h1>{tabTitle}</h1>{analytics && activeTab !== "pick-em" && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
+      <div className="analytics-page-heading"><h1>{tabTitle}</h1>{analytics && (needsAnalytics || activeTab === "rankings") && <span className="through-label">THROUGH WEEK {analytics.throughWeek}</span>}</div>
       <AnalyticsTabs active={activeTab} onChange={setActiveTab} />
       <div className="tab-panel" id="analytics-panel" role="tabpanel" aria-labelledby={`tab-${activeTab}`}>
         {activeTab === "rankings" && <RankingsView />}
