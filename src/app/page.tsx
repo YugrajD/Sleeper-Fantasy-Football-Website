@@ -64,7 +64,7 @@ function RankingsView() {
       <h2 id="rankings-title">Power rankings</h2>
       <label className="week-picker"><span>WEEK</span><select aria-label="Choose rankings week" value={week} onChange={(event) => setWeek(Number(event.target.value) as RankingWeek)}>{rankingWeeks.map((value) => <option value={value} key={value}>Week {value}</option>)}</select></label>
     </div>
-    {(week === 8 || week === 9) && <RankingsEditionIntro key={week} week={week} />}
+    {week === 10 ? <WeekTenEditionIntro /> : (week === 8 || week === 9) && <RankingsEditionIntro key={week} week={week} />}
     <ol className="rankings-list" aria-label={`Week ${week} power rankings`}>
       {rankings.map((entry, index) => {
         const { team, note, details } = entry;
@@ -75,7 +75,34 @@ function RankingsView() {
     </ol>
     {week === 8 && <p className="edition-source">Published October 29, 2026 by Harshith Karuturi. Source: UCDegens Sleeper data and projections through Week 7. Week 8 results are excluded; injuries and rosters reflect the publication date. Expected scoring covers Weeks 8–14.</p>}
     {week === 9 && <p className="edition-source">Published November 4, 2026 by Harshith Karuturi. Records and results are through Week 8. Roster outlook, projections, lineup efficiency, and remaining schedule carry over from the October 29 edition.</p>}
+    {week === 10 && <p className="edition-source">November 11, 2026 edition. Rankings, records, and commentary reflect results through Week 9; roster projections cover Weeks 10–14. The analytics tabs separately include finalized Week 10 results. <a href="/rankings/ucdegens-week-10.pdf" target="_blank" rel="noreferrer">Read the original PDF</a>.</p>}
   </section>;
+}
+
+function WeekTenEditionIntro() {
+  return <div className="rankings-edition">
+    <p className="edition-byline">NOV 11, 2026 <span>·</span> RESULTS THROUGH W9</p>
+    <p className="edition-lede">The record is real. So are the injury reports.</p>
+    <div className="edition-folds">
+      <details><summary>The week at a glance <span aria-hidden="true">+</span></summary><div className="edition-fold-content">
+        <p>Five regular-season weeks remain and eight teams make the playoffs. Hertz keeps the top spot, Kousins and Jerry are almost inseparable, and the middle is still packed.</p>
+        <ul>
+          <li><strong>Hertz stays first.</strong> Best all-play record, strongest Week 10 projected lineup, and best remaining scoring outlook.</li>
+          <li><strong>Second and third are a virtual tie.</strong> Kousins leads Jerry by less than 0.05 power-score points. Do not overread the order.</li>
+          <li><strong>SWKL climbs to fourth.</strong> A 7-2 record helps; injuries still keep the team on their toes, but they manage to win week after week.</li>
+          <li><strong>Puka’s high-powered engine blows up.</strong> Its 140.99 last-three PPG is best in the league; injuries and byes drive the drop to ninth.</li>
+          <li><strong>Plan the empty slots.</strong> The current roster model leaves several teams without a starter in a later week. Those holes are fixable.</li>
+        </ul>
+      </div></details>
+      <details><summary>About this edition <span aria-hidden="true">+</span></summary><div className="edition-fold-content">
+        <p>These are the November 11 power rankings entering Week 10, with results through Week 9. Team names and writeups are preserved from the supplied edition.</p>
+        <p>Lineup points use the best legal projected starting combination for Week 10. Remaining scoring averages that calculation independently across Weeks 10–14. Players on bye are excluded, empty slots score 0.00, and future pickups or trades are not assumed.</p>
+        <p>Roster coverage lists uncovered starting positions at that snapshot, rather than predicting that managers will leave them empty. All-play compares each team against every other team each week. Luck is actual wins minus expected wins from its all-play win percentage.</p>
+        <p><a href="/rankings/ucdegens-week-10.pdf" target="_blank" rel="noreferrer">Open the full Week 10 PDF</a></p>
+      </div></details>
+    </div>
+    <p className="edition-hint">Tap a team for its full breakdown <span>Power score · 100 = league average</span></p>
+  </div>;
 }
 
 function RankingsEditionIntro({ week }: { week: 8 | 9 }) {
@@ -116,15 +143,15 @@ function InDepthRanking({ entry, rank, movement }: { entry: PowerRank; rank: num
     <summary>
       <span className={`rank-number${rank === 1 ? " rank-number-first" : ""}`}>{String(rank).padStart(2, "0")}</span>
       <span className="deep-ranking-identity"><strong>{entry.team}</strong><span><b>{detail.record}</b> RECORD {movement && <span className={`rank-movement ${movement.className}`} aria-label={movement.label}>{movement.text}</span>}</span></span>
-      <span className="deep-ranking-score"><b>{detail.score.toFixed(1)}</b><small>POWER SCORE</small></span>
+      <span className="deep-ranking-score"><b>{detail.score.toFixed(2)}</b><small>POWER SCORE</small></span>
       <span className="deep-ranking-chevron" aria-hidden="true">+</span>
       <span className="deep-ranking-preview">{entry.note}</span>
     </summary>
     <div className="deep-ranking-content">
       <p className="deep-ranking-overview">{entry.note}</p>
       <dl className="ranking-metrics">{detail.metrics.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}{metric.rank !== undefined && <span>{metric.tied ? "T-" : ""}#{metric.rank}</span>}</dd></div>)}</dl>
-      <dl className="ranking-analysis">{[["Why here", detail.why], ["Weakness", detail.weakness], ["Watch out", detail.watch], ["How to improve", detail.improve]].map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>
-      <div className="ranking-byes"><h4>Bye-week crunch <span>2+ starters out</span></h4><ul>{detail.byes.length ? detail.byes.map((bye) => <li key={bye}>{bye}</li>) : <li>No remaining weeks with two or more starters on bye.</li>}</ul></div>
+      <dl className="ranking-analysis">{[["Why here", detail.why], ["Weakness", detail.weakness], ["Watch out", detail.watch], ["How to improve", detail.improve]].map(([label, text]) => text ? <div key={label}><dt>{label}</dt><dd>{text}</dd></div> : null)}</dl>
+      {detail.coverage !== undefined ? <div className="ranking-byes"><h4>Roster coverage <span>Weeks 10–14 snapshot</span></h4><ul>{detail.coverage.length ? detail.coverage.map((gap) => <li key={gap}>{gap}</li>) : <li>No uncovered starting slots in this snapshot.</li>}</ul></div> : <div className="ranking-byes"><h4>Bye-week crunch <span>2+ starters out</span></h4><ul>{detail.byes.length ? detail.byes.map((bye) => <li key={bye}>{bye}</li>) : <li>No remaining weeks with two or more starters on bye.</li>}</ul></div>}
     </div>
   </details>;
 }

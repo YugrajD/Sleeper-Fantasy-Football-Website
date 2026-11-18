@@ -1,0 +1,242 @@
+[
+  {
+    "week": 8,
+    "note": "Published snapshot inputs; remaining schedule uses inverted published rank because underlying strength values are unavailable.",
+    "exactRanks": 12,
+    "maxRankDifference": 0,
+    "meanAbsoluteError": 0.0961482089088399,
+    "maxAbsoluteError": 0.3171596743430456,
+    "fittedScale": 10.022655948005056,
+    "fittedMeanAbsoluteError": 0.09764987884464087,
+    "rows": [
+      {
+        "team": "Jerry Jones's Auction",
+        "publishedRank": 1,
+        "calculatedRank": 1,
+        "publishedScore": 113.8,
+        "calculatedScore": 113.48284032565695,
+        "error": -0.3171596743430456,
+        "fittedScore": 113.51338697859481
+      },
+      {
+        "team": "HertzTushRentals",
+        "publishedRank": 2,
+        "calculatedRank": 2,
+        "publishedScore": 109.4,
+        "calculatedScore": 109.52498351288146,
+        "error": 0.1249835128814567,
+        "fittedScore": 109.54656326600315
+      },
+      {
+        "team": "Jacobs Combos",
+        "publishedRank": 3,
+        "calculatedRank": 3,
+        "publishedScore": 108.5,
+        "calculatedScore": 108.47749404013355,
+        "error": -0.022505959866450098,
+        "fittedScore": 108.4967006065522
+      },
+      {
+        "team": "KirK Kousins",
+        "publishedRank": 4,
+        "calculatedRank": 4,
+        "publishedScore": 106.3,
+        "calculatedScore": 106.18360927999457,
+        "error": -0.11639072000542683,
+        "fittedScore": 106.19761883302768
+      },
+      {
+        "team": "Team SWKL",
+        "publishedRank": 5,
+        "calculatedRank": 5,
+        "publishedScore": 103.7,
+        "calculatedScore": 103.7696977817969,
+        "error": 0.06969778179690422,
+        "fittedScore": 103.77823838949082
+      },
+      {
+        "team": "Team aa3345",
+        "publishedRank": 6,
+        "calculatedRank": 6,
+        "publishedScore": 102.4,
+        "calculatedScore": 102.37940461161386,
+        "error": -0.020595388386141167,
+        "fittedScore": 102.38479537833024
+      },
+      {
+        "team": "Maye Chase McCooks",
+        "publishedRank": 7,
+        "calculatedRank": 7,
+        "publishedScore": 100.3,
+        "calculatedScore": 100.28930812258623,
+        "error": -0.01069187741376254,
+        "fittedScore": 100.28996357756452
+      },
+      {
+        "team": "Puka Me Up to Heaven",
+        "publishedRank": 8,
+        "calculatedRank": 8,
+        "publishedScore": 97.5,
+        "calculatedScore": 97.66737590955796,
+        "error": 0.16737590955796122,
+        "fittedScore": 97.66209112854712
+      },
+      {
+        "team": "Brandon Aubrey Sinclair",
+        "publishedRank": 9,
+        "calculatedRank": 9,
+        "publishedScore": 93.9,
+        "calculatedScore": 93.89084124136488,
+        "error": -0.009158758635123831,
+        "fittedScore": 93.87700036304585
+      },
+      {
+        "team": "Chase Brown Kids",
+        "publishedRank": 10,
+        "calculatedRank": 10,
+        "publishedScore": 92.9,
+        "calculatedScore": 93.01483204921674,
+        "error": 0.11483204921673007,
+        "fittedScore": 92.99900648902678
+      },
+      {
+        "team": "I'm Gonna Nix Myself",
+        "publishedRank": 11,
+        "calculatedRank": 11,
+        "publishedScore": 89.1,
+        "calculatedScore": 89.04411685678504,
+        "error": -0.05588314321495602,
+        "fittedScore": 89.01929526490082
+      },
+      {
+        "team": "Bye Week",
+        "publishedRank": 12,
+        "calculatedRank": 12,
+        "publishedScore": 82.4,
+        "calculatedScore": 82.27549626841189,
+        "error": -0.12450373158812056,
+        "fittedScore": 82.23533972491606
+      }
+    ]
+  },
+  {
+    "week": 9,
+    "note": "Published snapshot inputs; remaining schedule uses inverted published rank because underlying strength values are unavailable.",
+    "exactRanks": 12,
+    "maxRankDifference": 0,
+    "meanAbsoluteError": 0.10579338039468311,
+    "maxAbsoluteError": 0.35353503720401136,
+    "fittedScale": 10.018852402920045,
+    "fittedMeanAbsoluteError": 0.1076424115935346,
+    "rows": [
+      {
+        "team": "HertzTushRentals",
+        "publishedRank": 1,
+        "calculatedRank": 1,
+        "publishedScore": 110.8,
+        "calculatedScore": 110.987455604951,
+        "error": 0.18745560495099767,
+        "fittedScore": 111.00816959896406
+      },
+      {
+        "team": "Jerry Jones's Auction",
+        "publishedRank": 2,
+        "calculatedRank": 2,
+        "publishedScore": 110,
+        "calculatedScore": 109.64646496279599,
+        "error": -0.35353503720401136,
+        "fittedScore": 109.66465086721927
+      },
+      {
+        "team": "KirK Kousins",
+        "publishedRank": 3,
+        "calculatedRank": 3,
+        "publishedScore": 108.3,
+        "calculatedScore": 108.18947335034647,
+        "error": -0.11052664965352221,
+        "fittedScore": 108.20491247547685
+      },
+      {
+        "team": "Jacobs Combos",
+        "publishedRank": 4,
+        "calculatedRank": 4,
+        "publishedScore": 107.3,
+        "calculatedScore": 107.23205788263796,
+        "error": -0.06794211736203692,
+        "fittedScore": 107.24569204955242
+      },
+      {
+        "team": "Team SWKL",
+        "publishedRank": 5,
+        "calculatedRank": 5,
+        "publishedScore": 103.8,
+        "calculatedScore": 103.89521583152823,
+        "error": 0.0952158315282361,
+        "fittedScore": 103.90255924935988
+      },
+      {
+        "team": "Maye Chase McCooks",
+        "publishedRank": 6,
+        "calculatedRank": 6,
+        "publishedScore": 101.1,
+        "calculatedScore": 101.10310623647558,
+        "error": 0.0031062364755882754,
+        "fittedScore": 101.10518585679895
+      },
+      {
+        "team": "Team aa3345",
+        "publishedRank": 7,
+        "calculatedRank": 7,
+        "publishedScore": 100.9,
+        "calculatedScore": 100.87392454925637,
+        "error": -0.026075450743633155,
+        "fittedScore": 100.8755721070288
+      },
+      {
+        "team": "Puka Me Up to Heaven",
+        "publishedRank": 8,
+        "calculatedRank": 8,
+        "publishedScore": 99.6,
+        "calculatedScore": 99.7576674058922,
+        "error": 0.1576674058922123,
+        "fittedScore": 99.75721055072172
+      },
+      {
+        "team": "Brandon Aubrey Sinclair",
+        "publishedRank": 9,
+        "calculatedRank": 9,
+        "publishedScore": 97.3,
+        "calculatedScore": 97.29160784179552,
+        "error": -0.008392158204472366,
+        "fittedScore": 97.28650187177233
+      },
+      {
+        "team": "Chase Brown Kids",
+        "publishedRank": 10,
+        "calculatedRank": 10,
+        "publishedScore": 90,
+        "calculatedScore": 90.14131520352106,
+        "error": 0.14131520352106008,
+        "fittedScore": 90.12272921371657
+      },
+      {
+        "team": "I'm Gonna Nix Myself",
+        "publishedRank": 11,
+        "calculatedRank": 11,
+        "publishedScore": 89.9,
+        "calculatedScore": 89.88039306599053,
+        "error": -0.019606934009473775,
+        "fittedScore": 89.86131517525928
+      },
+      {
+        "team": "Bye Week",
+        "publishedRank": 12,
+        "calculatedRank": 12,
+        "publishedScore": 81.1,
+        "calculatedScore": 81.00131806480904,
+        "error": -0.09868193519095314,
+        "fittedScore": 80.96550098412985
+      }
+    ]
+  }
+]

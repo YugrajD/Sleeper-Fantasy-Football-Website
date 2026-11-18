@@ -1,0 +1,4082 @@
+{
+  "generated": "2026-11-12T00:45:29.619Z",
+  "throughWeek": 9,
+  "enteringWeek": 10,
+  "normalization": [
+    {
+      "key": "record",
+      "label": "Win percentage",
+      "weight": 0.15,
+      "mean": 0.5,
+      "deviation": 0.1951046991269026
+    },
+    {
+      "key": "pointDifferential",
+      "label": "Point differential per week",
+      "weight": 0.1,
+      "mean": 3.9968028886505635e-15,
+      "deviation": 12.487694947542584
+    },
+    {
+      "key": "allPlay",
+      "label": "All-play win percentage",
+      "weight": 0.2,
+      "mean": 0.49999999999999994,
+      "deviation": 0.12626262626262627
+    },
+    {
+      "key": "lineup",
+      "label": "Best projected lineup next week",
+      "weight": 0.2,
+      "mean": 120.93223333333334,
+      "deviation": 10.580114589749124
+    },
+    {
+      "key": "outlook",
+      "label": "Average best projected lineup remaining",
+      "weight": 0.15,
+      "mean": 119.66499,
+      "deviation": 7.525350199002918
+    },
+    {
+      "key": "momentum",
+      "label": "Last three completed weeks average",
+      "weight": 0.1,
+      "mean": 114.44000000000001,
+      "deviation": 17.150073102100972
+    },
+    {
+      "key": "efficiency",
+      "label": "Actual points / optimal points",
+      "weight": 0.05,
+      "mean": 0.8921574333011749,
+      "deviation": 0.03244045624695614
+    },
+    {
+      "key": "schedule",
+      "label": "Remaining opponents' all-play strength",
+      "weight": 0.05,
+      "reverse": true,
+      "mean": 0.5,
+      "deviation": 0.037564351478357655
+    }
+  ],
+  "assumptions": [
+    "Population z-scores, weighted exactly as published; score = 100 + 10 × weighted z-score.",
+    "Healthy current active rosters; bye players excluded. Out/doubtful/suspended excluded next week; IR/PUP/NFI excluded throughout.",
+    "Puka Nacua excluded for the remaining regular season in this Week 10 preview following the confirmed injury report.",
+    "Missing projections use conservative position estimates, marked in each lineup. Returning players may still have outdated projections.",
+    "Expected scoring averages raw best-lineup projections across all remaining regular-season weeks, including the upcoming week.",
+    "Remaining schedule strength is opponents' season all-play win percentage; lower is better."
+  ],
+  "rankings": [
+    {
+      "id": 9,
+      "team": "HertzTushRentals",
+      "record": "6-3",
+      "allPlayRecord": "65-34",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 136.66379999999998,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Trevor Lawrence",
+              "points": 21.745800000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Christian McCaffrey",
+              "points": 22.118,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kyren Williams",
+              "points": 17.128999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Matthew Golden",
+              "points": 15.291,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tee Higgins",
+              "points": 17.142,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tyler Warren",
+              "points": 12.291,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Garrett Wilson",
+              "points": 14.383000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Cam Little",
+              "points": 9.954,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIN",
+              "points": 6.609999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 1
+        },
+        {
+          "week": 11,
+          "total": 122.463,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Trevor Lawrence",
+              "points": 22.406000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Christian McCaffrey",
+              "points": 21.159,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kenny Gainwell",
+              "points": 6.390000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tee Higgins",
+              "points": 17.417,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DeVonta Smith",
+              "points": 13.246000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tyler Warren",
+              "points": 11.332,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Garrett Wilson",
+              "points": 15.32,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Cam Little",
+              "points": 9.043000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIN",
+              "points": 6.15,
+              "estimated": false
+            }
+          ],
+          "opponent": 8
+        },
+        {
+          "week": 12,
+          "total": 134.12500000000003,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Trevor Lawrence",
+              "points": 22.203,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Christian McCaffrey",
+              "points": 19.99,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kyren Williams",
+              "points": 16.852,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tee Higgins",
+              "points": 16.534,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DeVonta Smith",
+              "points": 14.093,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tyler Warren",
+              "points": 11.283000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Garrett Wilson",
+              "points": 16.747,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Cam Little",
+              "points": 9.043000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIN",
+              "points": 7.38,
+              "estimated": false
+            }
+          ],
+          "opponent": 12
+        },
+        {
+          "week": 13,
+          "total": 133.8792,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Trevor Lawrence",
+              "points": 23.6852,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Christian McCaffrey",
+              "points": 22.884,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kyren Williams",
+              "points": 15.71,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Matthew Golden",
+              "points": 15.814000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tee Higgins",
+              "points": 15.443999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Chig Okonkwo",
+              "points": 9.503,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "DeVonta Smith",
+              "points": 14.336000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Cam Little",
+              "points": 9.043000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIN",
+              "points": 7.46,
+              "estimated": false
+            }
+          ],
+          "opponent": 7
+        },
+        {
+          "week": 14,
+          "total": 126.9612,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Trevor Lawrence",
+              "points": 21.0322,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Christian McCaffrey",
+              "points": 20.089000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kyren Williams",
+              "points": 15.482,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Matthew Golden",
+              "points": 14.443,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tee Higgins",
+              "points": 15.353000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tyler Warren",
+              "points": 10.866,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Garrett Wilson",
+              "points": 13.676000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Cam Little",
+              "points": 9.5,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIN",
+              "points": 6.52,
+              "estimated": false
+            }
+          ],
+          "opponent": 2
+        }
+      ],
+      "metrics": {
+        "record": 0.6666666666666666,
+        "pointDifferential": 14.782222222222194,
+        "allPlay": 0.6565656565656566,
+        "lineup": 136.66379999999998,
+        "outlook": 130.81843999999998,
+        "momentum": 136.85999999999999,
+        "efficiency": 0.9344407771827125,
+        "schedule": 0.498989898989899
+      },
+      "contributions": {
+        "record": 1.2813632942658733,
+        "pointDifferential": 1.1837430594131497,
+        "allPlay": 2.480000000000001,
+        "lineup": 2.973798919325252,
+        "outlook": 2.2231756074576645,
+        "momentum": 1.3072830574263505,
+        "efficiency": 0.6517069852478561,
+        "schedule": 0.013444941418501218
+      },
+      "score": 112.11451586455465
+    },
+    {
+      "id": 4,
+      "team": "KirK Kousins",
+      "record": "6-3",
+      "allPlayRecord": "62-37",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 129.6708,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Bryce Young",
+              "points": 19.408800000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Braelon Allen",
+              "points": 8.317,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jahmyr Gibbs",
+              "points": 24.745000000000005,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Malik Nabers",
+              "points": 16.791,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tetairoa McMillan",
+              "points": 15.849,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brock Bowers",
+              "points": 16.259,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Khalil Shakir",
+              "points": 10.162,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Spencer Shrader",
+              "points": 11.699000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "CIN",
+              "points": 6.44,
+              "estimated": false
+            }
+          ],
+          "opponent": 7
+        },
+        {
+          "week": 11,
+          "total": 135.7284,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Jayden Daniels",
+              "points": 21.4114,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Braelon Allen",
+              "points": 11.709999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jahmyr Gibbs",
+              "points": 23.902,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rome Odunze",
+              "points": 12.2,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Malik Nabers",
+              "points": 16.739,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brock Bowers",
+              "points": 18.188,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tetairoa McMillan",
+              "points": 15.276,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Spencer Shrader",
+              "points": 10.611999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "CIN",
+              "points": 5.69,
+              "estimated": false
+            }
+          ],
+          "opponent": 10
+        },
+        {
+          "week": 12,
+          "total": 143.36540000000002,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Jayden Daniels",
+              "points": 23.5694,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Braelon Allen",
+              "points": 11.523999999999997,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jahmyr Gibbs",
+              "points": 27.304000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rome Odunze",
+              "points": 12.696,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Malik Nabers",
+              "points": 17.121000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brock Bowers",
+              "points": 18.691,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tetairoa McMillan",
+              "points": 15.218,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Spencer Shrader",
+              "points": 10.611999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "CIN",
+              "points": 6.63,
+              "estimated": false
+            }
+          ],
+          "opponent": 3
+        },
+        {
+          "week": 13,
+          "total": 104.74360000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Jayden Daniels",
+              "points": 20.9996,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jadarian Price",
+              "points": 9.148000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jahmyr Gibbs",
+              "points": 25.928,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rome Odunze",
+              "points": 11.873000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Malik Nabers",
+              "points": 16.149,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tetairoa McMillan",
+              "points": 13.746000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "CIN",
+              "points": 6.8999999999999995,
+              "estimated": false
+            }
+          ],
+          "opponent": 11
+        },
+        {
+          "week": 14,
+          "total": 139.922,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Bryce Young",
+              "points": 21.092999999999996,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Braelon Allen",
+              "points": 10.618,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jahmyr Gibbs",
+              "points": 27.345999999999997,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rome Odunze",
+              "points": 13.421,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Malik Nabers",
+              "points": 15.292000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brock Bowers",
+              "points": 20.046,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tetairoa McMillan",
+              "points": 15.654,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Spencer Shrader",
+              "points": 10.911999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "CIN",
+              "points": 5.540000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 3
+        }
+      ],
+      "metrics": {
+        "record": 0.6666666666666666,
+        "pointDifferential": 14.322222222222244,
+        "allPlay": 0.6262626262626263,
+        "lineup": 129.6708,
+        "outlook": 130.68604,
+        "momentum": 118.38666666666667,
+        "efficiency": 0.9399084817780685,
+        "schedule": 0.5373737373737374
+      },
+      "contributions": {
+        "record": 1.2813632942658733,
+        "pointDifferential": 1.1469067976424798,
+        "allPlay": 2.0000000000000013,
+        "lineup": 1.6518850703438137,
+        "outlook": 2.1967848090565085,
+        "momentum": 0.23012535533642545,
+        "efficiency": 0.735979915223511,
+        "schedule": -0.4974628324845421
+      },
+      "score": 108.74558240938407
+    },
+    {
+      "id": 8,
+      "team": "Jerry Jones’s Auction",
+      "record": "7-2",
+      "allPlayRecord": "61-38",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 133.3394,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Patrick Mahomes",
+              "points": 18.7994,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Derrick Henry",
+              "points": 15.257000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chase Brown",
+              "points": 13.293000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "CeeDee Lamb",
+              "points": 20.177,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Parker Washington",
+              "points": 15.331,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "George Kittle",
+              "points": 16.130000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Zay Flowers",
+              "points": 16.448,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jason Myers",
+              "points": 9.684000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BAL",
+              "points": 8.219999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 6
+        },
+        {
+          "week": 11,
+          "total": 126.6598,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Patrick Mahomes",
+              "points": 23.4918,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Derrick Henry",
+              "points": 16.943,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chase Brown",
+              "points": 14.171000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "CeeDee Lamb",
+              "points": 20.736000000000004,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Parker Washington",
+              "points": 15.211000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "George Kittle",
+              "points": 14.006,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Zay Flowers",
+              "points": 15.771,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BAL",
+              "points": 6.33,
+              "estimated": false
+            }
+          ],
+          "opponent": 9
+        },
+        {
+          "week": 12,
+          "total": 131.89840000000004,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Patrick Mahomes",
+              "points": 19.8594,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Derrick Henry",
+              "points": 14.768000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chase Brown",
+              "points": 15.787,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "CeeDee Lamb",
+              "points": 18.792,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Parker Washington",
+              "points": 16.128,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "George Kittle",
+              "points": 14.225000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Zay Flowers",
+              "points": 16.625999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jason Myers",
+              "points": 9.103000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BAL",
+              "points": 6.61,
+              "estimated": false
+            }
+          ],
+          "opponent": 1
+        },
+        {
+          "week": 13,
+          "total": 108.57100000000003,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Patrick Mahomes",
+              "points": 17.55,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "David Montgomery",
+              "points": 9.902000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chase Brown",
+              "points": 13.924,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "CeeDee Lamb",
+              "points": 18.102,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Parker Washington",
+              "points": 15.917,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "George Kittle",
+              "points": 15.094000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Kyle Pitts Sr.",
+              "points": 8.979,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jason Myers",
+              "points": 9.103000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            }
+          ],
+          "opponent": 5
+        },
+        {
+          "week": 14,
+          "total": 120.5468,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Patrick Mahomes",
+              "points": 20.6198,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Derrick Henry",
+              "points": 13.634000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "David Montgomery",
+              "points": 10.801000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Parker Washington",
+              "points": 15.377000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Zay Flowers",
+              "points": 16.645,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "George Kittle",
+              "points": 14.340000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Chase Brown",
+              "points": 12.817,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jason Myers",
+              "points": 9.562999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BAL",
+              "points": 6.749999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 5
+        }
+      ],
+      "metrics": {
+        "record": 0.7777777777777778,
+        "pointDifferential": 11.000000000000037,
+        "allPlay": 0.6161616161616161,
+        "lineup": 133.3394,
+        "outlook": 124.20308000000003,
+        "momentum": 103.44,
+        "efficiency": 0.8919350715746421,
+        "schedule": 0.40606060606060607
+      },
+      "contributions": {
+        "record": 2.1356054904431225,
+        "pointDifferential": 0.8808671292987255,
+        "allPlay": 1.8400000000000003,
+        "lineup": 2.3453747237648526,
+        "outlook": 0.9045605613014474,
+        "momentum": -0.6413966829478096,
+        "efficiency": -0.0034272287177472514,
+        "schedule": 1.2503795519206051
+      },
+      "score": 108.7119635450632
+    },
+    {
+      "id": 11,
+      "team": "SWKL",
+      "record": "7-2",
+      "allPlayRecord": "58-41",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 121.066,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Joe Burrow",
+              "points": 22.391,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Quinshon Judkins",
+              "points": 10.886000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Rachaad White",
+              "points": 10.951,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Nico Collins",
+              "points": 15.387000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "George Pickens",
+              "points": 13.681,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Travis Kelce",
+              "points": 12.914,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Bijan Robinson",
+              "points": 20.019000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Tyler Bass",
+              "points": 9.457,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NE",
+              "points": 5.38,
+              "estimated": false
+            }
+          ],
+          "opponent": 10
+        },
+        {
+          "week": 11,
+          "total": 96.93240000000002,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Joe Burrow",
+              "points": 23.9654,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Roschon Johnson",
+              "points": 0.595,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Rachaad White",
+              "points": 8.784,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Nico Collins",
+              "points": 18.178,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "George Pickens",
+              "points": 14.091000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Travis Kelce",
+              "points": 14.163,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jordan Addison",
+              "points": 8.423000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Chris Boswell",
+              "points": 8.733,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            }
+          ],
+          "opponent": 3
+        },
+        {
+          "week": 12,
+          "total": 125.92600000000002,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Joe Burrow",
+              "points": 22.566000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Quinshon Judkins",
+              "points": 12.435,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Rhamondre Stevenson",
+              "points": 12.302,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Nico Collins",
+              "points": 17.936999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "George Pickens",
+              "points": 12.717000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Travis Kelce",
+              "points": 12.593,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Bijan Robinson",
+              "points": 19.263,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Chris Boswell",
+              "points": 8.733,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NE",
+              "points": 7.38,
+              "estimated": false
+            }
+          ],
+          "opponent": 5
+        },
+        {
+          "week": 13,
+          "total": 122.53440000000003,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Joe Burrow",
+              "points": 19.859400000000004,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Quinshon Judkins",
+              "points": 12.409000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Rhamondre Stevenson",
+              "points": 11.324000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Nico Collins",
+              "points": 18.090000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "George Pickens",
+              "points": 12.185,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Travis Kelce",
+              "points": 12.355,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Bijan Robinson",
+              "points": 21.799,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Chris Boswell",
+              "points": 8.733,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NE",
+              "points": 5.78,
+              "estimated": false
+            }
+          ],
+          "opponent": 4
+        },
+        {
+          "week": 14,
+          "total": 119.82060000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Jared Goff",
+              "points": 19.6016,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Quinshon Judkins",
+              "points": 11.373999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Rhamondre Stevenson",
+              "points": 11.227,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Nico Collins",
+              "points": 19.275,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jordan Addison",
+              "points": 8.809000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Travis Kelce",
+              "points": 13.7,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Bijan Robinson",
+              "points": 19.851000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Chris Boswell",
+              "points": 8.733,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NE",
+              "points": 7.249999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 1
+        }
+      ],
+      "metrics": {
+        "record": 0.7777777777777778,
+        "pointDifferential": 14.495555555555534,
+        "allPlay": 0.5858585858585859,
+        "lineup": 121.066,
+        "outlook": 117.25588,
+        "momentum": 125.83333333333333,
+        "efficiency": 0.9085936375413847,
+        "schedule": 0.4808080808080808
+      },
+      "contributions": {
+        "record": 2.1356054904431225,
+        "pointDifferential": 1.1607871281647593,
+        "allPlay": 1.3600000000000008,
+        "lineup": 0.025286430601850624,
+        "outlook": -0.4801989149260848,
+        "momentum": 0.6643314734289718,
+        "efficiency": 0.25332880824929743,
+        "schedule": 0.25545388695152166
+      },
+      "score": 105.37459430291344
+    },
+    {
+      "id": 7,
+      "team": "Im ovulating",
+      "record": "4-5",
+      "allPlayRecord": "58-41",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 124.8658,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Jordan Love",
+              "points": 17.5238,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Woody Marks",
+              "points": 10.171000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonathan Taylor",
+              "points": 17.309,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Ladd McConkey",
+              "points": 11.723,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Chris Olave",
+              "points": 16.333,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brenton Strange",
+              "points": 11.008000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaxon Smith-Njigba",
+              "points": 23.777,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Ka'imi Fairbairn",
+              "points": 9.261000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "GB",
+              "points": 7.760000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 4
+        },
+        {
+          "week": 11,
+          "total": 108.0698,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Caleb Williams",
+              "points": 20.263800000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Omarion Hampton",
+              "points": 9.498,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonathan Taylor",
+              "points": 16.852,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Tre Tucker",
+              "points": 10.591000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Ladd McConkey",
+              "points": 13.191,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brenton Strange",
+              "points": 10.586,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Chris Olave",
+              "points": 17.520000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Ka'imi Fairbairn",
+              "points": 9.568,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            }
+          ],
+          "opponent": 2
+        },
+        {
+          "week": 12,
+          "total": 134.00059999999996,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Caleb Williams",
+              "points": 21.3676,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Josh Jacobs",
+              "points": 12.616,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonathan Taylor",
+              "points": 18.547999999999995,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Ladd McConkey",
+              "points": 13.158999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Chris Olave",
+              "points": 17.461,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brenton Strange",
+              "points": 11.236999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaxon Smith-Njigba",
+              "points": 24.404,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Ka'imi Fairbairn",
+              "points": 9.568,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "GB",
+              "points": 5.639999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 6
+        },
+        {
+          "week": 13,
+          "total": 128.8742,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Jordan Love",
+              "points": 20.3352,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Omarion Hampton",
+              "points": 8.927999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Josh Jacobs",
+              "points": 16.297,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Ladd McConkey",
+              "points": 13.044,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Chris Olave",
+              "points": 16.375,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brenton Strange",
+              "points": 11.09,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaxon Smith-Njigba",
+              "points": 26.337000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Ka'imi Fairbairn",
+              "points": 9.568,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "GB",
+              "points": 6.8999999999999995,
+              "estimated": false
+            }
+          ],
+          "opponent": 9
+        },
+        {
+          "week": 14,
+          "total": 131.9702,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Caleb Williams",
+              "points": 21.4432,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Josh Jacobs",
+              "points": 14.022000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonathan Taylor",
+              "points": 16.03,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Ladd McConkey",
+              "points": 13.739,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Chris Olave",
+              "points": 15.728,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Brenton Strange",
+              "points": 10.745000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaxon Smith-Njigba",
+              "points": 24.826,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Ka'imi Fairbairn",
+              "points": 10.037,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "GB",
+              "points": 5.3999999999999995,
+              "estimated": false
+            }
+          ],
+          "opponent": 6
+        }
+      ],
+      "metrics": {
+        "record": 0.4444444444444444,
+        "pointDifferential": -7.380000000000034,
+        "allPlay": 0.5858585858585859,
+        "lineup": 124.8658,
+        "outlook": 125.55611999999999,
+        "momentum": 112.38,
+        "efficiency": 0.9165658217497953,
+        "schedule": 0.501010101010101
+      },
+      "contributions": {
+        "record": -0.4271210980886247,
+        "pointDifferential": -0.5909817649295097,
+        "allPlay": 1.3600000000000008,
+        "lineup": 0.743577327693182,
+        "outlook": 1.1742569802493465,
+        "momentum": -0.12011610607931787,
+        "efficiency": 0.37620291562500113,
+        "schedule": -0.013444941418501218
+      },
+      "score": 102.50237331305158
+    },
+    {
+      "id": 2,
+      "team": "aa3345",
+      "record": "4-5",
+      "allPlayRecord": "47-52",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 129.2562,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Josh Allen",
+              "points": 26.473200000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Breece Hall",
+              "points": 11.635000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jaylen Warren",
+              "points": 17.301000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Amon-Ra St. Brown",
+              "points": 19.499000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Drake London",
+              "points": 16.629,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Hunter Henry",
+              "points": 10.014000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jameson Williams",
+              "points": 12.481,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andy Borregales",
+              "points": 7.804,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NYG",
+              "points": 7.42,
+              "estimated": false
+            }
+          ],
+          "opponent": 12
+        },
+        {
+          "week": 11,
+          "total": 105.612,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Josh Allen",
+              "points": 30.073,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Tyler Allgeier",
+              "points": 10.936,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jaylen Warren",
+              "points": 13.925,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Stefon Diggs",
+              "points": 13.193000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Amon-Ra St. Brown",
+              "points": 19.491999999999997,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jameson Williams",
+              "points": 12.473,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NYG",
+              "points": 5.52,
+              "estimated": false
+            }
+          ],
+          "opponent": 7
+        },
+        {
+          "week": 12,
+          "total": 125.7798,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Josh Allen",
+              "points": 25.5428,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Tyler Allgeier",
+              "points": 12.026,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jaylen Warren",
+              "points": 14.108,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Stefon Diggs",
+              "points": 13.769,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Amon-Ra St. Brown",
+              "points": 20.33,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Hunter Henry",
+              "points": 9.699000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Drake London",
+              "points": 15.584999999999997,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andy Borregales",
+              "points": 8.200000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NYG",
+              "points": 6.52,
+              "estimated": false
+            }
+          ],
+          "opponent": 10
+        },
+        {
+          "week": 13,
+          "total": 127.74100000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Josh Allen",
+              "points": 27.813,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Tyler Allgeier",
+              "points": 11.294000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jaylen Warren",
+              "points": 14.729,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Stefon Diggs",
+              "points": 13.524999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Amon-Ra St. Brown",
+              "points": 19.209,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Hunter Henry",
+              "points": 8.948,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Drake London",
+              "points": 18.323,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andy Borregales",
+              "points": 8.200000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NYG",
+              "points": 5.7,
+              "estimated": false
+            }
+          ],
+          "opponent": 3
+        },
+        {
+          "week": 14,
+          "total": 122.15240000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Josh Allen",
+              "points": 26.257400000000004,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Breece Hall",
+              "points": 9.06,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jaylen Warren",
+              "points": 13.782,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Amon-Ra St. Brown",
+              "points": 20.692999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Drake London",
+              "points": 16.459000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Hunter Henry",
+              "points": 8.587000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jameson Williams",
+              "points": 13.254000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andy Borregales",
+              "points": 8.200000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "NYG",
+              "points": 5.859999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 9
+        }
+      ],
+      "metrics": {
+        "record": 0.4444444444444444,
+        "pointDifferential": 1.8000000000000052,
+        "allPlay": 0.47474747474747475,
+        "lineup": 129.2562,
+        "outlook": 122.10828000000001,
+        "momentum": 116.67333333333333,
+        "efficiency": 0.9158634842138903,
+        "schedule": 0.5131313131313131
+      },
+      "contributions": {
+        "record": -0.4271210980886247,
+        "pointDifferential": 0.14414189388524562,
+        "allPlay": -0.399999999999999,
+        "lineup": 1.5735116280747279,
+        "outlook": 0.4870118869000406,
+        "momentum": 0.13022296290152402,
+        "efficiency": 0.3653778900680489,
+        "schedule": -0.17478423844051436
+      },
+      "score": 101.69836092530045
+    },
+    {
+      "id": 3,
+      "team": "Maye Chase McCooks",
+      "record": "5-4",
+      "allPlayRecord": "49-50",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 120.31499999999998,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Drake Maye",
+              "points": 23.235,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Audric Estime",
+              "points": 8.205000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Aaron Jones Sr.",
+              "points": 9.943999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Denzel Boston",
+              "points": 10.385000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Ja'Marr Chase",
+              "points": 19.833,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Trey McBride",
+              "points": 14.981000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "James Cook III",
+              "points": 15.408999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jake Bates",
+              "points": 9.663,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "JAX",
+              "points": 8.66,
+              "estimated": false
+            }
+          ],
+          "opponent": 5
+        },
+        {
+          "week": 11,
+          "total": 117.9638,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Kirk Cousins",
+              "points": 16.858800000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Aaron Jones Sr.",
+              "points": 8.921,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "James Cook III",
+              "points": 16.791,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Emeka Egbuka",
+              "points": 11.501000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jordyn Tyson",
+              "points": 11.259999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Trey McBride",
+              "points": 16.649,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Ja'Marr Chase",
+              "points": 20.260999999999996,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jake Bates",
+              "points": 8.982000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "JAX",
+              "points": 6.740000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 11
+        },
+        {
+          "week": 12,
+          "total": 126.42219999999999,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Drake Maye",
+              "points": 23.1642,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Aaron Jones Sr.",
+              "points": 10.403000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "James Cook III",
+              "points": 15.36,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jordyn Tyson",
+              "points": 11.246,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Denzel Boston",
+              "points": 11.022000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Trey McBride",
+              "points": 19.064,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Ja'Marr Chase",
+              "points": 19.241,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jake Bates",
+              "points": 8.982000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "JAX",
+              "points": 7.94,
+              "estimated": false
+            }
+          ],
+          "opponent": 4
+        },
+        {
+          "week": 13,
+          "total": 122.27800000000002,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Drake Maye",
+              "points": 21.786,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Aaron Jones Sr.",
+              "points": 11.11,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "James Cook III",
+              "points": 16.609,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Emeka Egbuka",
+              "points": 11.048000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Denzel Boston",
+              "points": 10.89,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Trey McBride",
+              "points": 16.84,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Ja'Marr Chase",
+              "points": 18.003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jake Bates",
+              "points": 8.982000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "SEA",
+              "points": 7.01,
+              "estimated": false
+            }
+          ],
+          "opponent": 2
+        },
+        {
+          "week": 14,
+          "total": 102.5282,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Kirk Cousins",
+              "points": 19.693199999999997,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Aaron Jones Sr.",
+              "points": 10.117,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "James Cook III",
+              "points": 16.386000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Emeka Egbuka",
+              "points": 10.628,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Denzel Boston",
+              "points": 10.21,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Ja'Marr Chase",
+              "points": 17.787000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Jake Bates",
+              "points": 9.707,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "SEA",
+              "points": 8,
+              "estimated": false
+            }
+          ],
+          "opponent": 4
+        }
+      ],
+      "metrics": {
+        "record": 0.5555555555555556,
+        "pointDifferential": 4.8533333333333655,
+        "allPlay": 0.494949494949495,
+        "lineup": 120.31499999999998,
+        "outlook": 117.90144000000001,
+        "momentum": 123.82000000000001,
+        "efficiency": 0.8829027844178111,
+        "schedule": 0.5111111111111111
+      },
+      "contributions": {
+        "record": 0.4271210980886247,
+        "pointDifferential": 0.3886492546239236,
+        "allPlay": -0.07999999999999875,
+        "lineup": -0.11667800534625317,
+        "outlook": -0.35152184683052873,
+        "momentum": 0.546936444186404,
+        "efficiency": -0.14264054754519917,
+        "schedule": -0.1478943556035119
+      },
+      "score": 100.52397204157346
+    },
+    {
+      "id": 1,
+      "team": "Brandon Aubrey Sinclair",
+      "record": "4-5",
+      "allPlayRecord": "51-48",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 124.62920000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Aaron Rodgers",
+              "points": 17.7602,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bhayshul Tuten",
+              "points": 16.268,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kenneth Walker III",
+              "points": 22.084000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rashee Rice",
+              "points": 14.232,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Carnell Tate",
+              "points": 11.866,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Harold Fannin Jr.",
+              "points": 11.507,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "A.J. Brown",
+              "points": 14.364,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Brandon Aubrey",
+              "points": 10.018,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIA",
+              "points": 6.529999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 9
+        },
+        {
+          "week": 11,
+          "total": 118.41820000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Aaron Rodgers",
+              "points": 15.086200000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bhayshul Tuten",
+              "points": 16.142,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kenneth Walker III",
+              "points": 21.779,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rashee Rice",
+              "points": 16.761000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Carnell Tate",
+              "points": 14.876000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "T.J. Hockenson",
+              "points": 10.847,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Keenan Allen",
+              "points": 9.399000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Brandon Aubrey",
+              "points": 9.518,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIA",
+              "points": 4.01,
+              "estimated": false
+            }
+          ],
+          "opponent": 5
+        },
+        {
+          "week": 12,
+          "total": 120.6412,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Aaron Rodgers",
+              "points": 13.8712,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bhayshul Tuten",
+              "points": 16.396,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kenneth Walker III",
+              "points": 20.357,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rashee Rice",
+              "points": 14.987000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Carnell Tate",
+              "points": 13.829,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Harold Fannin Jr.",
+              "points": 12.682,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "A.J. Brown",
+              "points": 13.651,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Brandon Aubrey",
+              "points": 9.518,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIA",
+              "points": 5.35,
+              "estimated": false
+            }
+          ],
+          "opponent": 8
+        },
+        {
+          "week": 13,
+          "total": 119.81559999999999,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Aaron Rodgers",
+              "points": 15.6906,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bhayshul Tuten",
+              "points": 16.276,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kenneth Walker III",
+              "points": 19.038,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rashee Rice",
+              "points": 14.691000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Carnell Tate",
+              "points": 15.190000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Harold Fannin Jr.",
+              "points": 12.559,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "A.J. Brown",
+              "points": 12.383000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Brandon Aubrey",
+              "points": 9.518,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIA",
+              "points": 4.47,
+              "estimated": false
+            }
+          ],
+          "opponent": 12
+        },
+        {
+          "week": 14,
+          "total": 110.4988,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Aaron Rodgers",
+              "points": 14.408800000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bhayshul Tuten",
+              "points": 13.85,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kenneth Walker III",
+              "points": 23.095,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Rashee Rice",
+              "points": 16.268,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Carnell Tate",
+              "points": 14.868000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Harold Fannin Jr.",
+              "points": 11.822,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "A.J. Brown",
+              "points": 11.717000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "MIA",
+              "points": 4.47,
+              "estimated": false
+            }
+          ],
+          "opponent": 11
+        }
+      ],
+      "metrics": {
+        "record": 0.4444444444444444,
+        "pointDifferential": -6.168888888888887,
+        "allPlay": 0.5151515151515151,
+        "lineup": 124.62920000000001,
+        "outlook": 118.8006,
+        "momentum": 113.44,
+        "efficiency": 0.8990681391533765,
+        "schedule": 0.4808080808080808
+      },
+      "contributions": {
+        "record": -0.4271210980886247,
+        "pointDifferential": -0.4939974042289404,
+        "allPlay": 0.24000000000000066,
+        "lineup": 0.6988519141841035,
+        "outlook": -0.17229563617807359,
+        "momentum": -0.058308789358892534,
+        "efficiency": 0.10651369696518947,
+        "schedule": 0.25545388695152166
+      },
+      "score": 100.14909657024629
+    },
+    {
+      "id": 10,
+      "team": "Puka Me Up to Heaven",
+      "record": "5-4",
+      "allPlayRecord": "52-47",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 101.6438,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Dak Prescott",
+              "points": 18.668799999999997,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Corey Kiner",
+              "points": 11.758999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ashton Jeanty",
+              "points": 11.551,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Konata Mumpfield",
+              "points": 7.999000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "KC Concepcion Jr.",
+              "points": 10.274000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Colby Parkinson",
+              "points": 6.800000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Javonte Williams",
+              "points": 17.770000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Evan McPherson",
+              "points": 10.032,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BUF",
+              "points": 6.79,
+              "estimated": false
+            }
+          ],
+          "opponent": 11
+        },
+        {
+          "week": 11,
+          "total": 109.60119999999999,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Dak Prescott",
+              "points": 19.1032,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ashton Jeanty",
+              "points": 13.940000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonah Coleman",
+              "points": 14.661999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Luther Burden III",
+              "points": 15.600000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Colston Loveland",
+              "points": 11.379999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Javonte Williams",
+              "points": 18.543999999999997,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Evan McPherson",
+              "points": 9.242,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BUF",
+              "points": 7.13,
+              "estimated": false
+            }
+          ],
+          "opponent": 4
+        },
+        {
+          "week": 12,
+          "total": 114.66120000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Dak Prescott",
+              "points": 18.1322,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ashton Jeanty",
+              "points": 14.643,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonah Coleman",
+              "points": 11.192000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Luther Burden III",
+              "points": 16.136000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "KC Concepcion Jr.",
+              "points": 11.251000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Colston Loveland",
+              "points": 11.868000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Javonte Williams",
+              "points": 16.397,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Evan McPherson",
+              "points": 9.242,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BUF",
+              "points": 5.800000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 2
+        },
+        {
+          "week": 13,
+          "total": 101.7792,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Dak Prescott",
+              "points": 16.1682,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonah Coleman",
+              "points": 11.803000000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Javonte Williams",
+              "points": 15.323999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Luther Burden III",
+              "points": 15.108,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Konata Mumpfield",
+              "points": 6.083,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Colston Loveland",
+              "points": 11.059000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "KC Concepcion Jr.",
+              "points": 11.132000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Evan McPherson",
+              "points": 9.242,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BUF",
+              "points": 5.859999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 6
+        },
+        {
+          "week": 14,
+          "total": 104.1214,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Tyler Shough",
+              "points": 16.3354,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ashton Jeanty",
+              "points": 15.844,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jonah Coleman",
+              "points": 10.951,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Luther Burden III",
+              "points": 16.796,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Konata Mumpfield",
+              "points": 6.2860000000000005,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Colston Loveland",
+              "points": 12.541,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "KC Concepcion Jr.",
+              "points": 10.326,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Evan McPherson",
+              "points": 9.242,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "BUF",
+              "points": 5.800000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 12
+        }
+      ],
+      "metrics": {
+        "record": 0.5555555555555556,
+        "pointDifferential": -3.559999999999996,
+        "allPlay": 0.5252525252525253,
+        "lineup": 101.6438,
+        "outlook": 106.36136000000002,
+        "momentum": 140.99333333333334,
+        "efficiency": 0.8540189219908111,
+        "schedule": 0.4727272727272728
+      },
+      "contributions": {
+        "record": 0.4271210980886247,
+        "pointDifferential": -0.28508063457304117,
+        "allPlay": 0.4000000000000017,
+        "lineup": -3.6461671884010687,
+        "outlook": -2.6517629707975585,
+        "momentum": 1.5482927201097707,
+        "efficiency": -0.5878232879961781,
+        "schedule": 0.36301341829952993
+      },
+      "score": 95.56759315473008
+    },
+    {
+      "id": 6,
+      "team": "Fuck You Navin",
+      "record": "2-7",
+      "allPlayRecord": "37-62",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 109.425,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Drew Lock",
+              "points": 16.095,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Kaleb Johnson",
+              "points": 7.287000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chuba Hubbard",
+              "points": 17.835,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Omar Cooper Jr.",
+              "points": 9.269,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DJ Moore",
+              "points": 13.192,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tucker Kraft",
+              "points": 11.042,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Justin Jefferson",
+              "points": 18.074,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andre Szmyt",
+              "points": 8.381,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "HOU",
+              "points": 8.25,
+              "estimated": false
+            }
+          ],
+          "opponent": 8
+        },
+        {
+          "week": 11,
+          "total": 116.8652,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Bo Nix",
+              "points": 18.933200000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bucky Irving",
+              "points": 18.745000000000005,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chuba Hubbard",
+              "points": 16.121,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DJ Moore",
+              "points": 16.512,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Justin Jefferson",
+              "points": 17.61,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaylen Waddle",
+              "points": 13.34,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Wil Lutz",
+              "points": 8.154,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "HOU",
+              "points": 7.45,
+              "estimated": false
+            }
+          ],
+          "opponent": 12
+        },
+        {
+          "week": 12,
+          "total": 122.0404,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Bo Nix",
+              "points": 15.9834,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bucky Irving",
+              "points": 19.342000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chuba Hubbard",
+              "points": 15.904,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DJ Moore",
+              "points": 13.899000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Justin Jefferson",
+              "points": 17.761,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tucker Kraft",
+              "points": 10.977,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaylen Waddle",
+              "points": 12.710999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andre Szmyt",
+              "points": 8.343,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "LAR",
+              "points": 7.119999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 7
+        },
+        {
+          "week": 13,
+          "total": 127.51040000000002,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Bo Nix",
+              "points": 19.411400000000004,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bucky Irving",
+              "points": 18.27,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chuba Hubbard",
+              "points": 15.807,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DJ Moore",
+              "points": 14.891000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Justin Jefferson",
+              "points": 17.169999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tucker Kraft",
+              "points": 12.134,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaylen Waddle",
+              "points": 14.424,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andre Szmyt",
+              "points": 8.343,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "HOU",
+              "points": 7.059999999999999,
+              "estimated": false
+            }
+          ],
+          "opponent": 10
+        },
+        {
+          "week": 14,
+          "total": 123.4826,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Bo Nix",
+              "points": 17.3736,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Bucky Irving",
+              "points": 15.733,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Chuba Hubbard",
+              "points": 18.262,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DJ Moore",
+              "points": 14.395000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Justin Jefferson",
+              "points": 18.387,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Tucker Kraft",
+              "points": 11.192,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Jaylen Waddle",
+              "points": 12.697000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Andre Szmyt",
+              "points": 8.343,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "HOU",
+              "points": 7.1,
+              "estimated": false
+            }
+          ],
+          "opponent": 7
+        }
+      ],
+      "metrics": {
+        "record": 0.2222222222222222,
+        "pointDifferential": -5.791111111111099,
+        "allPlay": 0.37373737373737376,
+        "lineup": 109.425,
+        "outlook": 119.86472,
+        "momentum": 113.66000000000001,
+        "efficiency": 0.8811924441260243,
+        "schedule": 0.5232323232323232
+      },
+      "contributions": {
+        "record": -2.1356054904431225,
+        "pointDifferential": -0.4637454018085795,
+        "allPlay": -1.9999999999999987,
+        "lineup": -2.1752568435284227,
+        "outlook": 0.03981143628899807,
+        "momentum": -0.045480855699935596,
+        "efficiency": -0.16900177191835097,
+        "schedule": -0.30923365262552505
+      },
+      "score": 92.74148742026506
+    },
+    {
+      "id": 12,
+      "team": "Chase Brown Kids",
+      "record": "2-7",
+      "allPlayRecord": "30-69",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 114.0248,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Brock Purdy",
+              "points": 22.9348,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Cam Skattebo",
+              "points": 12.736,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Rico Dowdle",
+              "points": 9.925,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Germie Bernard",
+              "points": 10.5,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Christian Watson",
+              "points": 16.677,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Sam LaPorta",
+              "points": 12.846,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Isaiah Likely",
+              "points": 12.466999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Will Reichard",
+              "points": 9.429,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "KC",
+              "points": 6.510000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 2
+        },
+        {
+          "week": 11,
+          "total": 111.79699999999998,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "C.J. Stroud",
+              "points": 19.708,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Cam Skattebo",
+              "points": 10.735000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "D'Andre Swift",
+              "points": 18.262999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Germie Bernard",
+              "points": 9.012999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Wan'Dale Robinson",
+              "points": 11.735,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Sam LaPorta",
+              "points": 12.815000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Isaiah Likely",
+              "points": 12.187,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Will Reichard",
+              "points": 9.991,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "KC",
+              "points": 7.3500000000000005,
+              "estimated": false
+            }
+          ],
+          "opponent": 6
+        },
+        {
+          "week": 12,
+          "total": 119.3158,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Brock Purdy",
+              "points": 19.733800000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Cam Skattebo",
+              "points": 12.853,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "D'Andre Swift",
+              "points": 17.849999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Wan'Dale Robinson",
+              "points": 10.916,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Christian Watson",
+              "points": 16.707,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Sam LaPorta",
+              "points": 13.312000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Isaiah Likely",
+              "points": 12.393,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Will Reichard",
+              "points": 9.991,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "KC",
+              "points": 5.56,
+              "estimated": false
+            }
+          ],
+          "opponent": 9
+        },
+        {
+          "week": 13,
+          "total": 118.62599999999999,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Brock Purdy",
+              "points": 22.587,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "D'Andre Swift",
+              "points": 15.725999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jordan Mason",
+              "points": 10.364,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Wan'Dale Robinson",
+              "points": 11.986999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Christian Watson",
+              "points": 18.246000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Sam LaPorta",
+              "points": 12.575,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Isaiah Likely",
+              "points": 11.71,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Will Reichard",
+              "points": 9.991,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "KC",
+              "points": 5.4399999999999995,
+              "estimated": false
+            }
+          ],
+          "opponent": 1
+        },
+        {
+          "week": 14,
+          "total": 115.438,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "C.J. Stroud",
+              "points": 20.336000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "D'Andre Swift",
+              "points": 17.090999999999998,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Jordan Mason",
+              "points": 9.192,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Wan'Dale Robinson",
+              "points": 11.698,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Christian Watson",
+              "points": 16.948,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Sam LaPorta",
+              "points": 13.57,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Isaiah Likely",
+              "points": 11.172,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Will Reichard",
+              "points": 9.991,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "KC",
+              "points": 5.4399999999999995,
+              "estimated": false
+            }
+          ],
+          "opponent": 10
+        }
+      ],
+      "metrics": {
+        "record": 0.2222222222222222,
+        "pointDifferential": -8.795555555555564,
+        "allPlay": 0.30303030303030304,
+        "lineup": 114.0248,
+        "outlook": 115.84031999999999,
+        "momentum": 90.63333333333334,
+        "efficiency": 0.8326793966344059,
+        "schedule": 0.5090909090909091
+      },
+      "contributions": {
+        "record": -2.1356054904431225,
+        "pointDifferential": -0.7043377975281514,
+        "allPlay": -3.1199999999999988,
+        "lineup": -1.3057388508865164,
+        "outlook": -0.7623572123939363,
+        "momentum": -1.3881379120040156,
+        "efficiency": -0.9167262663321782,
+        "schedule": -0.12100447276651097
+      },
+      "score": 89.54609199764556
+    },
+    {
+      "id": 5,
+      "team": "Daddymundo",
+      "record": "2-7",
+      "allPlayRecord": "24-75",
+      "weekly": [
+        {
+          "week": 10,
+          "total": 106.28699999999999,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Geno Smith",
+              "points": 16.478,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ollie Gordon II",
+              "points": 13.610999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Tony Pollard",
+              "points": 12.001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jalen Coker",
+              "points": 14.58,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "DK Metcalf",
+              "points": 11.975000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Dalton Kincaid",
+              "points": 10.125,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Pat Freiermuth",
+              "points": 11.143,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Matt Gay",
+              "points": 8.514,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "IND",
+              "points": 7.860000000000001,
+              "estimated": false
+            }
+          ],
+          "opponent": 3
+        },
+        {
+          "week": 11,
+          "total": 114.35180000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Geno Smith",
+              "points": 16.814799999999998,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ollie Gordon II",
+              "points": 11.605000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Saquon Barkley",
+              "points": 11.934000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jalen Coker",
+              "points": 15.108,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Mike Evans",
+              "points": 17.592,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Dalton Kincaid",
+              "points": 12.184000000000001,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tony Pollard",
+              "points": 13.772,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Matt Gay",
+              "points": 9.482,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "IND",
+              "points": 5.86,
+              "estimated": false
+            }
+          ],
+          "opponent": 1
+        },
+        {
+          "week": 12,
+          "total": 114.9248,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Geno Smith",
+              "points": 18.391800000000003,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ollie Gordon II",
+              "points": 11.506,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Saquon Barkley",
+              "points": 14.477,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jalen Coker",
+              "points": 15.057000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Mike Evans",
+              "points": 17.812,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Dalton Kincaid",
+              "points": 10.418,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tony Pollard",
+              "points": 11.520999999999999,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Matt Gay",
+              "points": 9.482,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "IND",
+              "points": 6.26,
+              "estimated": false
+            }
+          ],
+          "opponent": 11
+        },
+        {
+          "week": 13,
+          "total": 80.986,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ollie Gordon II",
+              "points": 11.528,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Saquon Barkley",
+              "points": 13.312,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jalen Coker",
+              "points": 13.775,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Mike Evans",
+              "points": 18.881,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Dalton Kincaid",
+              "points": 11.082,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tony Pollard",
+              "points": 12.408,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": null,
+              "points": 0,
+              "estimated": false
+            }
+          ],
+          "opponent": 8
+        },
+        {
+          "week": 14,
+          "total": 116.36840000000001,
+          "lineup": [
+            {
+              "slot": "QB",
+              "player": "Geno Smith",
+              "points": 14.1224,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Ollie Gordon II",
+              "points": 13.186,
+              "estimated": false
+            },
+            {
+              "slot": "RB",
+              "player": "Saquon Barkley",
+              "points": 14.703,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Jalen Coker",
+              "points": 15.465000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "WR",
+              "player": "Mike Evans",
+              "points": 17.927,
+              "estimated": false
+            },
+            {
+              "slot": "TE",
+              "player": "Dalton Kincaid",
+              "points": 10.814,
+              "estimated": false
+            },
+            {
+              "slot": "FLEX",
+              "player": "Tony Pollard",
+              "points": 13.615000000000002,
+              "estimated": false
+            },
+            {
+              "slot": "K",
+              "player": "Matt Gay",
+              "points": 10.006,
+              "estimated": false
+            },
+            {
+              "slot": "DEF",
+              "player": "IND",
+              "points": 6.53,
+              "estimated": false
+            }
+          ],
+          "opponent": 8
+        }
+      ],
+      "metrics": {
+        "record": 0.2222222222222222,
+        "pointDifferential": -29.55777777777775,
+        "allPlay": 0.24242424242424243,
+        "lineup": 106.28699999999999,
+        "outlook": 106.5836,
+        "momentum": 77.16000000000001,
+        "efficiency": 0.8487202392511749,
+        "schedule": 0.5656565656565655
+      },
+      "contributions": {
+        "record": -2.1356054904431225,
+        "pointDifferential": -2.366952259960061,
+        "allPlay": -4.079999999999999,
+        "lineup": -2.7684451258255454,
+        "outlook": -2.6074647001278235,
+        "momentum": -2.173751667299483,
+        "efficiency": -0.6694911088692793,
+        "schedule": -0.8739211922025718
+      },
+      "score": 82.32436845527211
+    }
+  ]
+}

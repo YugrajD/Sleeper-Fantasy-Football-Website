@@ -43,25 +43,20 @@ const manualPlayerProjections: Partial<Record<string, Partial<Record<number, Rec
   "2026": { 9: { "12481": 0 } }, // Cam Skattebo
 };
 
-// Manager-supplied team totals fill weeks where Sleeper's projection feed is incomplete.
-const manualTeamProjections: Array<{ teamAliases: string[]; weeks: Record<number, number> }> = [
-  { teamAliases: ["dartvader"], weeks: { 4: 98.2, 5: 102.78 } },
-  { teamAliases: ["daddymundo"], weeks: { 4: 98.2 } },
-  { teamAliases: ["brandonaubreysinclair"], weeks: { 4: 122.01 } },
-  { teamAliases: ["mayechasemccooks"], weeks: { 4: 108.87, 8: 114.91 } },
-  { teamAliases: ["bride"], weeks: { 4: 108.87 } },
-  { teamAliases: ["byeweek"], weeks: { 3: 116.81 } },
-  { teamAliases: ["jacobs"], weeks: { 3: 111.75 } },
-  { teamAliases: ["imovulating"], weeks: { 3: 111.75 } },
-  { teamAliases: ["swkl"], weeks: { 6: 117.88 } },
-];
+// Manager-supplied totals by season, stable Sleeper roster ID, and week.
+// Display names change; a rename must never remove a historical correction.
+const manualTeamProjections: Record<string, Record<number, Record<number, number>>> = {
+  "2026": {
+    1: { 4: 122.01 }, // Brandon Aubrey Sinclair
+    3: { 4: 108.87, 8: 114.91 }, // Maye Chase McCooks / Chase
+    5: { 3: 116.81, 4: 98.2, 5: 102.78 }, // Bye Week / Dart Vader / Daddymundo
+    7: { 3: 111.75 }, // Jacobs Combos / Im ovulating
+    11: { 6: 117.88 }, // SWKL
+  },
+};
 
-function manualProjectionFor(team: string, week: number): number | null {
-  const normalizedName = team.toLowerCase().replace(/[^a-z0-9]/g, "");
-  const override = manualTeamProjections.find(({ teamAliases }) =>
-    teamAliases.some((alias) => normalizedName === alias || normalizedName.startsWith(alias)),
-  );
-  return override?.weeks[week] ?? null;
+function manualProjectionFor(season: string, rosterId: number, week: number): number | null {
+  return manualTeamProjections[season]?.[rosterId]?.[week] ?? null;
 }
 
 export type WeeklyTeamAnalytics = {
@@ -400,7 +395,7 @@ export async function getLeagueAnalytics(): Promise<LeagueAnalytics> {
       });
       const allProjected = projectedScores.length > 0 && projectedScores.every((score) => score !== null);
       const generatedProjection = allProjected ? projectedScores.reduce<number>((sum, score) => sum + (score ?? 0), 0) : null;
-      const projected = manualProjectionFor(team.name, week) ?? generatedProjection;
+      const projected = manualProjectionFor(season, team.rosterId, week) ?? generatedProjection;
       const optimal = optimalLineupPoints(matchup, league.roster_positions ?? [], players);
       const starterPointsByPosition: Record<string, number> = {};
       let flexStarterPoints = 0;

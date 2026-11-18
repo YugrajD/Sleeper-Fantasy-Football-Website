@@ -1,5 +1,5 @@
 // Monday night can finish before Sleeper advances its week or scoring marker.
-const confirmedThrough: Record<string, number> = { "2026": 9 };
+const confirmedThrough: Record<string, number> = { "2026": 10 };
 
 export function completedSleeperWeek(season: string, currentWeek: number, lastScoredWeek?: number | string | null) {
   const lastScored = Number(lastScoredWeek ?? currentWeek - 1);
